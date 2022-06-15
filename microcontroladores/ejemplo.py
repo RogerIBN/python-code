@@ -3,6 +3,7 @@ import datetime as dt
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from numpy import sin
+
 # %%
 
 # Create figure for plotting
@@ -32,7 +33,7 @@ def animate(i, xs, ys):
     temp_c = next(siguiente_dato)
 
     # Add x and y to lists
-    xs.append(dt.datetime.now().strftime('%H:%M:%S.%f'))
+    xs.append(dt.datetime.now().strftime("%H:%M:%S.%f"))
     ys.append(temp_c)
 
     # Limit x and y lists to 20 items
@@ -44,10 +45,10 @@ def animate(i, xs, ys):
     ax.plot(xs, ys)
 
     # Format plot
-    plt.xticks(rotation=45, ha='right')
+    plt.xticks(rotation=45, ha="right")
     plt.subplots_adjust(bottom=0.30)
-    plt.title('TMP102 Temperature over Time')
-    plt.ylabel('Temperature (deg C)')
+    plt.title("TMP102 Temperature over Time")
+    plt.ylabel("Temperature (deg C)")
 
 
 # %%

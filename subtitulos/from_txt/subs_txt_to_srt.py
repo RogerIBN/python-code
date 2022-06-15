@@ -1,6 +1,9 @@
+# %%
 """Módulos para calcular el la duración del último subtítulo"""
 from datetime import datetime, timedelta
 from pathlib import Path
+
+# %%
 
 
 def subconv(archivo: str, nombre: str = None, seg: int = 3):
@@ -30,11 +33,11 @@ def subconv(archivo: str, nombre: str = None, seg: int = 3):
     ):
         # Separa los tiempos de las frases en una tupla para tiempos
         # y en un generador para las frases
-        txt = tuple(txt)
+        txt = tuple(line.rstrip() for line in txt.readlines())
         # Impares
-        tiempos = tuple(tiempo.rstrip() for tiempo in txt[::2])
+        tiempos = txt[::2]
         # Pares
-        frases = (frase.rstrip().capitalize() for frase in txt[1::2])
+        frases = (frase.capitalize() for frase in txt[1::2])
 
         for i, frase in enumerate(frases):
             # Escribe el número de subtítulo
@@ -69,3 +72,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# %%

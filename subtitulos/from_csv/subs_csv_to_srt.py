@@ -13,7 +13,7 @@ for i in range(len(tiempo)):
         segundo_t = f"00:{tiempo[i + 1]},00"
         print(primer_t + " --> " + segundo_t)
         print(frase[i].capitalize() + "\n")
-    except:
+    except IndexError:
         ultimo_t = datetime.strptime(tiempo[i], "%M:%S")
         ultimo_t += timedelta(seconds=3)
         print(f"00:{tiempo[i]},00 --> {ultimo_t.strftime('%H:%M:%S')},00")

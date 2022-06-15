@@ -1,5 +1,5 @@
 # %%
-"""Librerías para manejor de interfaz gráfica y animaciones
+"""Librerías para manejar de interfaz gráfica y animaciones
 de gráficas."""
 from tkinter import Tk, Frame, Button
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg

@@ -20,10 +20,10 @@ fig, ax = plt.subplots()
 while True:
     # y.append(np.random.randn(1)) # añadimos un valor aleatorio a la lista 'y'
     # leemos la linea del serial en arduino
-    cad = serialArduino.readline().decode('ascii')
+    cad = serialArduino.readline().decode("ascii")
 
     # Los primeros datos son basura, inicio en 0
-    if (i == 0):
+    if i == 0:
         cad1 = 0
         cad2 = 0
         cad3 = 9.81
