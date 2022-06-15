@@ -3,7 +3,7 @@ import cv2 as cv
 from crea_fondos import *
 
 
-def aplicar_viñeta(imagen, sigma=200):
+def aplicar_vineta(imagen, sigma=200):
     # Calcular el alto y ancho de la imagen
     alto, ancho, _ = imagen.shape
 
@@ -30,11 +30,11 @@ def main():
     imagen = cv.imread("fondos/images/calle.jpg")
 
     # Cambiar el tamaño de la imagen
-    imagen = cambiar_tamaño(imagen, 0.4)
+    imagen = cambiar_tamano(imagen, 0.4)
 
     cv.imshow("Original", imagen)
 
-    imagen = aplicar_viñeta(imagen)
+    imagen = aplicar_vineta(imagen)
 
     # displaying the vignette filter image
     cv.imshow("VIGNETTE", imagen)

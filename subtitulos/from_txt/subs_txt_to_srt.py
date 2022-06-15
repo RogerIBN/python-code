@@ -7,7 +7,7 @@ from typing import Sequence, Optional
 # %%
 
 
-def subconv(archivo: str, nombre: Optional[str] = None, seg: Optional[int] = 3):
+def subconv(archivo: str, nombre: Optional[str] = None, seg: Optional[int] = 3) -> None:
     """
     Crea un archivo de extensión srt tomando un archivo de script de
     youtube.
@@ -67,7 +67,7 @@ def get_second_time(tiempos: Sequence[str], i: int, last_seg: int) -> str:
 
     except IndexError:  # Justo cuando falte el último tiempo
         # Tomando el último tiempo del archivo se le da formato
-        # y suma 'seg' segundos para obtener el momento cuando
+        # y suma 'last_seg' segundos para obtener el momento cuando
         # desaparece el último subtítulo
         segundo_t = datetime.strptime(tiempos[i], "%M:%S")
         segundo_t += timedelta(seconds=last_seg)

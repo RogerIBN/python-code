@@ -1,14 +1,14 @@
 """Para manipular las imágenes"""
-import numpy as np
-import cv2 as cv
-
 from itertools import product
+
+import cv2 as cv
+import numpy as np
 
 Pixel = list[int, int, int]
 Imagen = np.ndarray
 
 
-def dibuja_fondo(color: Pixel, tamaño: list[int, int] = (1920, 1080)) -> Imagen:
+def dibuja_fondo(color: Pixel, tamano: list[int, int] = (1920, 1080)) -> Imagen:
     """Crea una imagen RGB de un solo un color plano.
 
     Args:
@@ -18,7 +18,7 @@ def dibuja_fondo(color: Pixel, tamaño: list[int, int] = (1920, 1080)) -> Imagen
     Returns:
         imagen: Imagen RGB de un color.
     """
-    ancho, alto = tamaño
+    ancho, alto = tamano
     return np.full((alto, ancho, 3), color, dtype="uint8")
 
 
@@ -69,7 +69,7 @@ def dibuja_puntos(
     return img
 
 
-def cambiar_tamaño(img: Imagen, cambio: float) -> Imagen:
+def cambiar_tamano(img: Imagen, cambio: float) -> Imagen:
     """Cambia el tamaño de una imagen con un factor de proporción
 
     Args:
@@ -88,42 +88,46 @@ def cambiar_tamaño(img: Imagen, cambio: float) -> Imagen:
     return cv.resize(img, (ancho, alto), interpolation=cv.INTER_AREA)
 
 
-def unir_imágenes(
+def unir_imagenes(
     primer_plano: Imagen, segundo_plano: Imagen, coordenadas: list[int, int]
 ) -> Imagen:
     # Quiero colocar el logo en las coordenadas (x, y), así que
     # creo zoom_fondo_segundo_plano
-    x, y = coordenadas
+    x_coord, y_coord = coordenadas
     alto, ancho, _ = primer_plano.shape
-    zoom_fondo_segundo_plano = segundo_plano[y : y + alto, x : x + ancho]
+    zoom_fondo_segundo_plano = segundo_plano[
+        y_coord : y_coord + alto, x_coord : x_coord + ancho
+    ]
 
     # Ahora creo una máscara del primer plano y su máscara inversa también.
     primer_plano_gris = cv.cvtColor(primer_plano, cv.COLOR_BGR2GRAY)
-    _, máscara = cv.threshold(primer_plano_gris, 10, 255, cv.THRESH_BINARY)
+    _, mascara = cv.threshold(primer_plano_gris, 10, 255, cv.THRESH_BINARY)
     # máscara = cv.erode(máscara, None)
     # kernel = cv.getStructuringElement(cv.MORPH_RECT, (3, 3))
     # máscara = cv.morphologyEx(máscara, cv.MORPH_OPEN, kernel)
-    máscara_inv = cv.bitwise_not(máscara)
+    mascara_inv = cv.bitwise_not(mascara)
 
     # Deja en negro (0, 0, 0) el area del logo en zoom_fondo_segundo_plano
     recorte_zoom_fondo_segundo_plano = cv.bitwise_and(
-        zoom_fondo_segundo_plano, zoom_fondo_segundo_plano, mask=máscara_inv
+        zoom_fondo_segundo_plano, zoom_fondo_segundo_plano, mask=mascara_inv
     )
 
     # Toma solo la región del logo en la imagen
     recorte_frente_primer_plano = cv.bitwise_and(
-        primer_plano, primer_plano, mask=máscara
+        primer_plano, primer_plano, mask=mascara
     )
 
     # Pon el logo en el zoom_fondo_segundo_plano y modifica la imagen del fondo
     zoom_primer_y_segundo_plano = cv.add(
         recorte_zoom_fondo_segundo_plano, recorte_frente_primer_plano
     )
-    segundo_plano[y : y + alto, x : x + ancho] = zoom_primer_y_segundo_plano
+    segundo_plano[
+        y_coord : y_coord + alto, x_coord : x_coord + ancho
+    ] = zoom_primer_y_segundo_plano
     return segundo_plano
 
 
-def aplicar_viñeta(img: Imagen, sigma: int = 200) -> Imagen:
+def aplicar_vineta(img: Imagen, sigma: int = 200) -> Imagen:
     # Calcular el alto y ancho de la imagen
     alto, ancho, _ = img.shape
 
@@ -137,23 +141,23 @@ def aplicar_viñeta(img: Imagen, sigma: int = 200) -> Imagen:
 
     # Creando una máscara y normalizándose usando una
     # función de numpy
-    máscara = 255 * kernel / np.linalg.norm(kernel)
+    mascara = 255 * kernel / np.linalg.norm(kernel)
 
     # Aplicando la máscara a cada canal de la imagen
     for i in range(3):
-        img[:, :, i] *= máscara
+        img[:, :, i] *= mascara
 
     return img
 
 
 def main():
     """Función principal"""
-    tamaño = (1920, 1080)
+    tamano = (1920, 1080)
     color_fondo = [0] * 3
     intensidad = 40
     color_marca = [intensidad] * 3  # (27, 27, 27)
 
-    fondo = dibuja_fondo(color_fondo, tamaño)
+    fondo = dibuja_fondo(color_fondo, tamano)
     fondo = dibuja_puntos(fondo, color_marca, 30, 2)
     # fondo = dibuja_rejilla(fondo, color_marca, 30, 2)
 
@@ -165,9 +169,9 @@ def main():
 
     logo = cv.imread("fondos/images/alpha.png")
     # Cambiar tamaño de la imagen en primer plano
-    logo = cambiar_tamaño(logo, 0.12)
+    logo = cambiar_tamano(logo, 0.12)
     # Poner el logo en el fondo
-    fondo = unir_imágenes(logo, fondo, (1830, 990))
+    fondo = unir_imagenes(logo, fondo, (1830, 990))
 
     # Guardarla
     # cv.imwrite('fondos/images/fondo_lineas_logo.png', fondo)
