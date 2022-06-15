@@ -1,0 +1,27 @@
+{
+    "cSpell.ignoreWords": [
+        "Capp",
+        "Seaof",
+        "arange",
+        "dtype",
+        "imread",
+        "imshow",
+        "imwrite",
+        "returns",
+        "srt",
+        "subconv",
+        "subs",
+        "subtitulos",
+        "to",
+        "txt"
+    ],
+    "cSpell.words": [
+        "ggplot",
+        "padx",
+        "pady",
+        "rappi",
+        "tkagg"
+    ],
+    "python.linting.pylintEnabled": false,
+    "python.formatting.provider": "black"
+}

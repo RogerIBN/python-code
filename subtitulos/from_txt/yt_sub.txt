@@ -1,0 +1,376 @@
+00:00
+so you're in high school physics class
+00:02
+and your teacher asks the class
+00:04
+okay everyone what is the formula for
+00:07
+momentum
+00:08
+and you being an eager young physics
+00:10
+student raise your hand
+00:11
+and proudly tell your teacher that
+00:13
+momentum equals mass
+00:14
+times velocity and your teacher says
+00:17
+great job
+00:18
+that is exactly right momentum equals
+00:20
+mass times velocity
+00:21
+and the whole class claps and cheers for
+00:23
+you because you got the answer right
+00:25
+and you go up to the front of the class
+00:27
+and your teacher gives you a gold star
+00:29
+for being such a good physics student
+00:31
+and that night you go home
+00:33
+and your parents are there and they say
+00:35
+we hear you got an answer right
+00:36
+in physics class today and so we decided
+00:38
+to celebrate your birthday
+00:40
+six months early and then they give you
+00:42
+an xbox
+00:43
+and so you stand proudly with your xbox
+00:45
+in one hand
+00:46
+and a copy of a brief history of time by
+00:48
+stephen hawking in the other
+00:50
+and you tell yourself that this is the
+00:51
+best day of your life
+00:53
+so you graduate high school with amazing
+00:55
+grades and then the day finally comes
+00:57
+when you go to university to study
+00:59
+physics
+01:00
+and you're really excited because you
+01:01
+are going to become a scientist
+01:03
+you show up to your mechanics class and
+01:05
+the professor asks
+01:06
+what is the formula for momentum and you
+01:09
+tell your professor momentum equals mass
+01:11
+times velocity
+01:12
+and then your professor gives you an
+01:14
+angry look and she says
+01:15
+you complete idiot this isn't some
+01:17
+physics class for dumb babies
+01:19
+we are studying rotational mechanics and
+01:21
+in rotational mechanics an object's
+01:23
+momentum is defined using the inertia
+01:25
+tensor
+01:25
+which is a symmetric 3x3 matrix that you
+01:27
+can calculate by doing integrals over
+01:29
+the mass distribution
+01:31
+and the whole class of 300 people laugh
+01:33
+at you for getting the answer wrong
+01:35
+and for being a dumb idiot and you ask
+01:37
+yourself if you are really meant to be a
+01:39
+physics student after
+01:40
+all maybe you are too much of a dumb
+01:42
+idiot to study physics
+01:43
+you go home that night and desperately
+01:45
+search the internet to figure out what
+01:47
+the inertia tensor is
+01:48
+but you just get lost in a maze of
+01:50
+wikipedia articles and feel more
+01:51
+confused than when you started you
+01:54
+remember that day when your high school
+01:55
+teacher told you that you were right for
+01:57
+saying that momentum
+01:58
+equals mass times velocity and you
+02:00
+wonder why your high school physics
+02:01
+teacher lied to you
+02:02
+and why they didn't tell you about the
+02:04
+inertia tensor the next day you show up
+02:06
+at your relativity class
+02:08
+and your professor is albert einstein
+02:10
+and einstein tells you that momentum is
+02:12
+a four-dimensional vector that lives in
+02:14
+four-dimensional space-time
+02:15
+and you tell einstein that you thought
+02:17
+momentum was calculated with the
+02:18
+three-by-three symmetric inertia tensor
+02:21
+and einstein is like well technically
+02:23
+rotational angular momentum is a
+02:25
+four-dimensional bivector but that's
+02:27
+outside the scope of this course
+02:29
+later you go to your advanced mechanics
+02:31
+class and your professor tells you that
+02:32
+generalized momentum
+02:34
+conjugate to position is defined as the
+02:36
+partial derivative of the lagrangian
+02:38
+with respect to q
+02:39
+dot and in hamiltonian mechanics
+02:41
+momentum is just a coordinate in the
+02:42
+phase space
+02:43
+on a symplectic manifold and then you go
+02:45
+to your quantum physics class and the
+02:47
+professor says that momentum
+02:48
+measurements are always probabilistic
+02:50
+and the way to get the expected value of
+02:52
+momentum is to operate on the
+02:53
+wavefunction with the momentum operator
+02:55
+which has the square root of negative 1
+02:57
+in it for some reason
+02:58
+and then do an integral over all
+03:00
+possible outcomes and also the momentum
+03:02
+wave function might be the fourier
+03:04
+transform of the position wave function
+03:05
+but he can't be sure since everything is
+03:07
+just probabilities
+03:09
+at this point you've completely given up
+03:10
+trying to understand what momentum is
+03:12
+you've stopped going to classes and
+03:14
+you've stopped doing your homework
+03:15
+because life is pointless and physics
+03:17
+will never
+03:18
+make sense no matter how hard you try
+03:20
+you remember back to the greatest day of
+03:22
+your life when your high school physics
+03:23
+teacher gave you a gold star
+03:25
+and you remember now that your teacher
+03:27
+had this tired look in her eye
+03:29
+a quiet sadness that you couldn't
+03:31
+explain and that's when you realize
+03:33
+she knew she knew that momentum wasn't
+03:35
+equal to mass times velocity
+03:37
+because she had gone to university to
+03:38
+study physics just like you
+03:40
+and she lied to you to protect you from
+03:42
+the truth
+03:43
+because she didn't want you to deal with
+03:45
+the pain of never knowing what momentum
+03:46
+is because it's too complicated
+03:48
+and you realize that students all over
+03:50
+the world are in high school right now
+03:52
+being lied to being told that momentum
+03:54
+is mass times velocity
+03:56
+and they too will go to university and
+03:58
+learn the truth and suffer just like you
+04:00
+did
+04:00
+and you clench your fists in anger you
+04:03
+realize that the eternal cycle of folly
+04:05
+needs to be stopped and it's time to
+04:06
+destroy momentum once and for all
+04:09
+so you go to switzerland and dig a
+04:11
+tunnel to the large hadron collider
+04:13
+and you're about to push the secret
+04:14
+button on the large hadron collider that
+04:16
+will destroy the universe
+04:18
+but then the avengers show up to stop
+04:19
+you and captain america tells you that
+04:22
+he understands how you feel
+04:23
+and that we've all been there we've all
+04:25
+been confused in physics class
+04:27
+and think that we're dumb but the way to
+04:29
+deal with pain isn't to destroy the
+04:31
+universe
+04:31
+instead we should help others and use
+04:33
+our life experience to make the world
+04:35
+less painful
+04:36
+for future generations and iron man says
+04:38
+he wants
+04:39
+shawarma anyway the avengers beat you up
+04:41
+and the police arrest you and when
+04:43
+you're in court the judge sentences you
+04:45
+to life in prison for trying to destroy
+04:47
+the universe which is the worst possible
+04:49
+crime
+04:49
+so you're sentenced to life in a
+04:51
+frictionless vacuum
+04:52
+eternally bouncing off the walls of your
+04:54
+cell in perfectly elastic collisions
+04:57
+and all you can think about is whether
+04:58
+you should calculate your momentum with
+05:00
+an inertia tensor or a lagrangian or a
+05:02
+wave function
+05:03
+and you will never know the answer
+05:11
+happy April fools normally i use this
+05:14
+channel to teach math and physics
+05:16
+you can check the description for links
+05:18
+to my playlists on
+05:20
+tensors for beginners tensor calculus
+05:22
+error correcting codes
+05:24
+and relativity i actually just finished
+05:27
+a video series on special relativity
+05:29
+and i'm about to start general
+05:31
+relativity so feel free to subscribe if
+05:34
+you want to watch my general relativity
+05:36
+videos when i upload them

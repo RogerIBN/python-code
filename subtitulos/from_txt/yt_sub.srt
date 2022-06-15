@@ -1,0 +1,751 @@
+1
+00:00:00,00 --> 00:00:02,00
+So you're in high school physics class
+
+2
+00:00:02,00 --> 00:00:04,00
+And your teacher asks the class
+
+3
+00:00:04,00 --> 00:00:07,00
+Okay everyone what is the formula for
+
+4
+00:00:07,00 --> 00:00:08,00
+Momentum
+
+5
+00:00:08,00 --> 00:00:10,00
+And you being an eager young physics
+
+6
+00:00:10,00 --> 00:00:11,00
+Student raise your hand
+
+7
+00:00:11,00 --> 00:00:13,00
+And proudly tell your teacher that
+
+8
+00:00:13,00 --> 00:00:14,00
+Momentum equals mass
+
+9
+00:00:14,00 --> 00:00:17,00
+Times velocity and your teacher says
+
+10
+00:00:17,00 --> 00:00:18,00
+Great job
+
+11
+00:00:18,00 --> 00:00:20,00
+That is exactly right momentum equals
+
+12
+00:00:20,00 --> 00:00:21,00
+Mass times velocity
+
+13
+00:00:21,00 --> 00:00:23,00
+And the whole class claps and cheers for
+
+14
+00:00:23,00 --> 00:00:25,00
+You because you got the answer right
+
+15
+00:00:25,00 --> 00:00:27,00
+And you go up to the front of the class
+
+16
+00:00:27,00 --> 00:00:29,00
+And your teacher gives you a gold star
+
+17
+00:00:29,00 --> 00:00:31,00
+For being such a good physics student
+
+18
+00:00:31,00 --> 00:00:33,00
+And that night you go home
+
+19
+00:00:33,00 --> 00:00:35,00
+And your parents are there and they say
+
+20
+00:00:35,00 --> 00:00:36,00
+We hear you got an answer right
+
+21
+00:00:36,00 --> 00:00:38,00
+In physics class today and so we decided
+
+22
+00:00:38,00 --> 00:00:40,00
+To celebrate your birthday
+
+23
+00:00:40,00 --> 00:00:42,00
+Six months early and then they give you
+
+24
+00:00:42,00 --> 00:00:43,00
+An xbox
+
+25
+00:00:43,00 --> 00:00:45,00
+And so you stand proudly with your xbox
+
+26
+00:00:45,00 --> 00:00:46,00
+In one hand
+
+27
+00:00:46,00 --> 00:00:48,00
+And a copy of a brief history of time by
+
+28
+00:00:48,00 --> 00:00:50,00
+Stephen hawking in the other
+
+29
+00:00:50,00 --> 00:00:51,00
+And you tell yourself that this is the
+
+30
+00:00:51,00 --> 00:00:53,00
+Best day of your life
+
+31
+00:00:53,00 --> 00:00:55,00
+So you graduate high school with amazing
+
+32
+00:00:55,00 --> 00:00:57,00
+Grades and then the day finally comes
+
+33
+00:00:57,00 --> 00:00:59,00
+When you go to university to study
+
+34
+00:00:59,00 --> 00:01:00,00
+Physics
+
+35
+00:01:00,00 --> 00:01:01,00
+And you're really excited because you
+
+36
+00:01:01,00 --> 00:01:03,00
+Are going to become a scientist
+
+37
+00:01:03,00 --> 00:01:05,00
+You show up to your mechanics class and
+
+38
+00:01:05,00 --> 00:01:06,00
+The professor asks
+
+39
+00:01:06,00 --> 00:01:09,00
+What is the formula for momentum and you
+
+40
+00:01:09,00 --> 00:01:11,00
+Tell your professor momentum equals mass
+
+41
+00:01:11,00 --> 00:01:12,00
+Times velocity
+
+42
+00:01:12,00 --> 00:01:14,00
+And then your professor gives you an
+
+43
+00:01:14,00 --> 00:01:15,00
+Angry look and she says
+
+44
+00:01:15,00 --> 00:01:17,00
+You complete idiot this isn't some
+
+45
+00:01:17,00 --> 00:01:19,00
+Physics class for dumb babies
+
+46
+00:01:19,00 --> 00:01:21,00
+We are studying rotational mechanics and
+
+47
+00:01:21,00 --> 00:01:23,00
+In rotational mechanics an object's
+
+48
+00:01:23,00 --> 00:01:25,00
+Momentum is defined using the inertia
+
+49
+00:01:25,00 --> 00:01:25,00
+Tensor
+
+50
+00:01:25,00 --> 00:01:27,00
+Which is a symmetric 3x3 matrix that you
+
+51
+00:01:27,00 --> 00:01:29,00
+Can calculate by doing integrals over
+
+52
+00:01:29,00 --> 00:01:31,00
+The mass distribution
+
+53
+00:01:31,00 --> 00:01:33,00
+And the whole class of 300 people laugh
+
+54
+00:01:33,00 --> 00:01:35,00
+At you for getting the answer wrong
+
+55
+00:01:35,00 --> 00:01:37,00
+And for being a dumb idiot and you ask
+
+56
+00:01:37,00 --> 00:01:39,00
+Yourself if you are really meant to be a
+
+57
+00:01:39,00 --> 00:01:40,00
+Physics student after
+
+58
+00:01:40,00 --> 00:01:42,00
+All maybe you are too much of a dumb
+
+59
+00:01:42,00 --> 00:01:43,00
+Idiot to study physics
+
+60
+00:01:43,00 --> 00:01:45,00
+You go home that night and desperately
+
+61
+00:01:45,00 --> 00:01:47,00
+Search the internet to figure out what
+
+62
+00:01:47,00 --> 00:01:48,00
+The inertia tensor is
+
+63
+00:01:48,00 --> 00:01:50,00
+But you just get lost in a maze of
+
+64
+00:01:50,00 --> 00:01:51,00
+Wikipedia articles and feel more
+
+65
+00:01:51,00 --> 00:01:54,00
+Confused than when you started you
+
+66
+00:01:54,00 --> 00:01:55,00
+Remember that day when your high school
+
+67
+00:01:55,00 --> 00:01:57,00
+Teacher told you that you were right for
+
+68
+00:01:57,00 --> 00:01:58,00
+Saying that momentum
+
+69
+00:01:58,00 --> 00:02:00,00
+Equals mass times velocity and you
+
+70
+00:02:00,00 --> 00:02:01,00
+Wonder why your high school physics
+
+71
+00:02:01,00 --> 00:02:02,00
+Teacher lied to you
+
+72
+00:02:02,00 --> 00:02:04,00
+And why they didn't tell you about the
+
+73
+00:02:04,00 --> 00:02:06,00
+Inertia tensor the next day you show up
+
+74
+00:02:06,00 --> 00:02:08,00
+At your relativity class
+
+75
+00:02:08,00 --> 00:02:10,00
+And your professor is albert einstein
+
+76
+00:02:10,00 --> 00:02:12,00
+And einstein tells you that momentum is
+
+77
+00:02:12,00 --> 00:02:14,00
+A four-dimensional vector that lives in
+
+78
+00:02:14,00 --> 00:02:15,00
+Four-dimensional space-time
+
+79
+00:02:15,00 --> 00:02:17,00
+And you tell einstein that you thought
+
+80
+00:02:17,00 --> 00:02:18,00
+Momentum was calculated with the
+
+81
+00:02:18,00 --> 00:02:21,00
+Three-by-three symmetric inertia tensor
+
+82
+00:02:21,00 --> 00:02:23,00
+And einstein is like well technically
+
+83
+00:02:23,00 --> 00:02:25,00
+Rotational angular momentum is a
+
+84
+00:02:25,00 --> 00:02:27,00
+Four-dimensional bivector but that's
+
+85
+00:02:27,00 --> 00:02:29,00
+Outside the scope of this course
+
+86
+00:02:29,00 --> 00:02:31,00
+Later you go to your advanced mechanics
+
+87
+00:02:31,00 --> 00:02:32,00
+Class and your professor tells you that
+
+88
+00:02:32,00 --> 00:02:34,00
+Generalized momentum
+
+89
+00:02:34,00 --> 00:02:36,00
+Conjugate to position is defined as the
+
+90
+00:02:36,00 --> 00:02:38,00
+Partial derivative of the lagrangian
+
+91
+00:02:38,00 --> 00:02:39,00
+With respect to q
+
+92
+00:02:39,00 --> 00:02:41,00
+Dot and in hamiltonian mechanics
+
+93
+00:02:41,00 --> 00:02:42,00
+Momentum is just a coordinate in the
+
+94
+00:02:42,00 --> 00:02:43,00
+Phase space
+
+95
+00:02:43,00 --> 00:02:45,00
+On a symplectic manifold and then you go
+
+96
+00:02:45,00 --> 00:02:47,00
+To your quantum physics class and the
+
+97
+00:02:47,00 --> 00:02:48,00
+Professor says that momentum
+
+98
+00:02:48,00 --> 00:02:50,00
+Measurements are always probabilistic
+
+99
+00:02:50,00 --> 00:02:52,00
+And the way to get the expected value of
+
+100
+00:02:52,00 --> 00:02:53,00
+Momentum is to operate on the
+
+101
+00:02:53,00 --> 00:02:55,00
+Wavefunction with the momentum operator
+
+102
+00:02:55,00 --> 00:02:57,00
+Which has the square root of negative 1
+
+103
+00:02:57,00 --> 00:02:58,00
+In it for some reason
+
+104
+00:02:58,00 --> 00:03:00,00
+And then do an integral over all
+
+105
+00:03:00,00 --> 00:03:02,00
+Possible outcomes and also the momentum
+
+106
+00:03:02,00 --> 00:03:04,00
+Wave function might be the fourier
+
+107
+00:03:04,00 --> 00:03:05,00
+Transform of the position wave function
+
+108
+00:03:05,00 --> 00:03:07,00
+But he can't be sure since everything is
+
+109
+00:03:07,00 --> 00:03:09,00
+Just probabilities
+
+110
+00:03:09,00 --> 00:03:10,00
+At this point you've completely given up
+
+111
+00:03:10,00 --> 00:03:12,00
+Trying to understand what momentum is
+
+112
+00:03:12,00 --> 00:03:14,00
+You've stopped going to classes and
+
+113
+00:03:14,00 --> 00:03:15,00
+You've stopped doing your homework
+
+114
+00:03:15,00 --> 00:03:17,00
+Because life is pointless and physics
+
+115
+00:03:17,00 --> 00:03:18,00
+Will never
+
+116
+00:03:18,00 --> 00:03:20,00
+Make sense no matter how hard you try
+
+117
+00:03:20,00 --> 00:03:22,00
+You remember back to the greatest day of
+
+118
+00:03:22,00 --> 00:03:23,00
+Your life when your high school physics
+
+119
+00:03:23,00 --> 00:03:25,00
+Teacher gave you a gold star
+
+120
+00:03:25,00 --> 00:03:27,00
+And you remember now that your teacher
+
+121
+00:03:27,00 --> 00:03:29,00
+Had this tired look in her eye
+
+122
+00:03:29,00 --> 00:03:31,00
+A quiet sadness that you couldn't
+
+123
+00:03:31,00 --> 00:03:33,00
+Explain and that's when you realize
+
+124
+00:03:33,00 --> 00:03:35,00
+She knew she knew that momentum wasn't
+
+125
+00:03:35,00 --> 00:03:37,00
+Equal to mass times velocity
+
+126
+00:03:37,00 --> 00:03:38,00
+Because she had gone to university to
+
+127
+00:03:38,00 --> 00:03:40,00
+Study physics just like you
+
+128
+00:03:40,00 --> 00:03:42,00
+And she lied to you to protect you from
+
+129
+00:03:42,00 --> 00:03:43,00
+The truth
+
+130
+00:03:43,00 --> 00:03:45,00
+Because she didn't want you to deal with
+
+131
+00:03:45,00 --> 00:03:46,00
+The pain of never knowing what momentum
+
+132
+00:03:46,00 --> 00:03:48,00
+Is because it's too complicated
+
+133
+00:03:48,00 --> 00:03:50,00
+And you realize that students all over
+
+134
+00:03:50,00 --> 00:03:52,00
+The world are in high school right now
+
+135
+00:03:52,00 --> 00:03:54,00
+Being lied to being told that momentum
+
+136
+00:03:54,00 --> 00:03:56,00
+Is mass times velocity
+
+137
+00:03:56,00 --> 00:03:58,00
+And they too will go to university and
+
+138
+00:03:58,00 --> 00:04:00,00
+Learn the truth and suffer just like you
+
+139
+00:04:00,00 --> 00:04:00,00
+Did
+
+140
+00:04:00,00 --> 00:04:03,00
+And you clench your fists in anger you
+
+141
+00:04:03,00 --> 00:04:05,00
+Realize that the eternal cycle of folly
+
+142
+00:04:05,00 --> 00:04:06,00
+Needs to be stopped and it's time to
+
+143
+00:04:06,00 --> 00:04:09,00
+Destroy momentum once and for all
+
+144
+00:04:09,00 --> 00:04:11,00
+So you go to switzerland and dig a
+
+145
+00:04:11,00 --> 00:04:13,00
+Tunnel to the large hadron collider
+
+146
+00:04:13,00 --> 00:04:14,00
+And you're about to push the secret
+
+147
+00:04:14,00 --> 00:04:16,00
+Button on the large hadron collider that
+
+148
+00:04:16,00 --> 00:04:18,00
+Will destroy the universe
+
+149
+00:04:18,00 --> 00:04:19,00
+But then the avengers show up to stop
+
+150
+00:04:19,00 --> 00:04:22,00
+You and captain america tells you that
+
+151
+00:04:22,00 --> 00:04:23,00
+He understands how you feel
+
+152
+00:04:23,00 --> 00:04:25,00
+And that we've all been there we've all
+
+153
+00:04:25,00 --> 00:04:27,00
+Been confused in physics class
+
+154
+00:04:27,00 --> 00:04:29,00
+And think that we're dumb but the way to
+
+155
+00:04:29,00 --> 00:04:31,00
+Deal with pain isn't to destroy the
+
+156
+00:04:31,00 --> 00:04:31,00
+Universe
+
+157
+00:04:31,00 --> 00:04:33,00
+Instead we should help others and use
+
+158
+00:04:33,00 --> 00:04:35,00
+Our life experience to make the world
+
+159
+00:04:35,00 --> 00:04:36,00
+Less painful
+
+160
+00:04:36,00 --> 00:04:38,00
+For future generations and iron man says
+
+161
+00:04:38,00 --> 00:04:39,00
+He wants
+
+162
+00:04:39,00 --> 00:04:41,00
+Shawarma anyway the avengers beat you up
+
+163
+00:04:41,00 --> 00:04:43,00
+And the police arrest you and when
+
+164
+00:04:43,00 --> 00:04:45,00
+You're in court the judge sentences you
+
+165
+00:04:45,00 --> 00:04:47,00
+To life in prison for trying to destroy
+
+166
+00:04:47,00 --> 00:04:49,00
+The universe which is the worst possible
+
+167
+00:04:49,00 --> 00:04:49,00
+Crime
+
+168
+00:04:49,00 --> 00:04:51,00
+So you're sentenced to life in a
+
+169
+00:04:51,00 --> 00:04:52,00
+Frictionless vacuum
+
+170
+00:04:52,00 --> 00:04:54,00
+Eternally bouncing off the walls of your
+
+171
+00:04:54,00 --> 00:04:57,00
+Cell in perfectly elastic collisions
+
+172
+00:04:57,00 --> 00:04:58,00
+And all you can think about is whether
+
+173
+00:04:58,00 --> 00:05:00,00
+You should calculate your momentum with
+
+174
+00:05:00,00 --> 00:05:02,00
+An inertia tensor or a lagrangian or a
+
+175
+00:05:02,00 --> 00:05:03,00
+Wave function
+
+176
+00:05:03,00 --> 00:05:11,00
+And you will never know the answer
+
+177
+00:05:11,00 --> 00:05:14,00
+Happy april fools normally i use this
+
+178
+00:05:14,00 --> 00:05:16,00
+Channel to teach math and physics
+
+179
+00:05:16,00 --> 00:05:18,00
+You can check the description for links
+
+180
+00:05:18,00 --> 00:05:20,00
+To my playlists on
+
+181
+00:05:20,00 --> 00:05:22,00
+Tensors for beginners tensor calculus
+
+182
+00:05:22,00 --> 00:05:24,00
+Error correcting codes
+
+183
+00:05:24,00 --> 00:05:27,00
+And relativity i actually just finished
+
+184
+00:05:27,00 --> 00:05:29,00
+A video series on special relativity
+
+185
+00:05:29,00 --> 00:05:31,00
+And i'm about to start general
+
+186
+00:05:31,00 --> 00:05:34,00
+Relativity so feel free to subscribe if
+
+187
+00:05:34,00 --> 00:05:36,00
+You want to watch my general relativity
+
+188
+00:05:36,00 --> 00:05:39,00
+Videos when i upload them
