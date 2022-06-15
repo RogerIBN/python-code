@@ -3,15 +3,18 @@
         "Capp",
         "Seaof",
         "arange",
+        "direccion",
         "dtype",
         "imread",
         "imshow",
         "imwrite",
+        "reduccion",
         "returns",
         "srt",
         "subconv",
         "subs",
         "subtitulos",
+        "tamano",
         "to",
         "txt"
     ],
@@ -22,6 +25,6 @@
         "rappi",
         "tkagg"
     ],
-    "python.linting.pylintEnabled": false,
+    "python.linting.pylintEnabled": true,
     "python.formatting.provider": "black"
 }

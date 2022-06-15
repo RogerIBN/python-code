@@ -2,12 +2,12 @@
 manipulación de imágenes
 """
 from glob import glob
-
-import cv2 as cv
 from pathlib import Path
 
+import cv2 as cv
 
-def cambiar_tamaño(imagen, cambio: float):
+
+def cambiar_tamano(imagen, cambio: float):
     """Cambia el tamaño de una imagen con
     un factor de proporción
 
@@ -51,25 +51,26 @@ def creador_carpetas(archivo: str) -> str:
     print(f"Procesando la carpeta de {nombre_alumne}")
 
     # Crea la nueva dirección del archivo
-    nueva_dirección = carpeta_alumne / nombre_archivo
-    return nombre_archivo, nueva_dirección.as_posix()
+    nueva_direccion = carpeta_alumne / nombre_archivo
+    return nombre_archivo, nueva_direccion.as_posix()
 
 
 def main():
+    """Función principal"""
     # archivos = Path(input("Nombre de la carpeta: ")).glob(r"*.JPG")
     archivos = glob(input("Nombre de la carpeta: ") + r"\*.JPG")
-    reducción = float(input("Rango de reducción (0 < x < 1 ): "))
+    reduccion = float(input("Rango de reducción (0 < x < 1 ): "))
 
     for archivo in archivos:
         # Crea las carpetas necesarias
         nombre_archivo, nueva_dirección = creador_carpetas(archivo)
 
         # Lee la imagen y la reduce
-        img = cambiar_tamaño(cv.imread(archivo), reducción)
+        img = cambiar_tamano(cv.imread(archivo), reduccion)
 
         # Guarda la imagen en la nueva dirección
         cv.imwrite(nueva_dirección, img)
-        print(f"Copiado {nombre_archivo} reducido al {reducción:.2%}.")
+        print(f"Copiado {nombre_archivo} reducido al {reduccion:.2%}.")
 
     input(f"Terminado procesado de {len(archivos)} archivos...")
 
