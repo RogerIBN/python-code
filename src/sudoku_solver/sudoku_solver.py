@@ -61,8 +61,7 @@ def resolver(sudoku: list[list[int]]):
                     sudoku[pos_y][pos_x] = 0
             # Prueba otro número
             return
-    # Si no hay casillas vacías
-    # Terminaste con una respuesta
+    # Si no hay casillas vacías, terminaste con una respuesta
     # Muéstrame
     print(matrix(sudoku))
     # Pausa el proceso y pregunta si quieres continuar.

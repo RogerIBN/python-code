@@ -8,6 +8,7 @@
         "imread",
         "imshow",
         "imwrite",
+        "ndarray",
         "reduccion",
         "returns",
         "srt",
@@ -16,14 +17,15 @@
         "subtitulos",
         "tamano",
         "to",
-        "txt"
+        "txt",
+        "vineta"
     ],
     "cSpell.words": [
         "ggplot",
         "padx",
         "pady",
         "rappi",
-        "tkagg"
+        "tkagg",
     ],
     "python.linting.pylintEnabled": false,
     "python.formatting.provider": "black"

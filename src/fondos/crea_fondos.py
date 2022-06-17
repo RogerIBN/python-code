@@ -39,9 +39,14 @@ def dibuja_rejilla(
     """
     alto, ancho, _ = img.shape
     for fila, columna in product(range(0, alto, espaciado), range(0, ancho, espaciado)):
+        # Lineas horizontales
         cv.line(img, (0, fila), (ancho, fila), color=color, thickness=grosor)
+        # Lineas verticales
         cv.line(img, (columna, 0), (columna, alto), color=color, thickness=grosor)
+
+    # Última linea horizontal inferior
     cv.line(img, (0, alto - 1), (ancho - 1, alto - 1), color=color, thickness=grosor)
+    # Última linea vertical derecha
     cv.line(img, (ancho - 1, 0), (ancho - 1, alto - 1), color=color, thickness=grosor)
     return img
 
