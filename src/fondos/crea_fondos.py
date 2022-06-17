@@ -102,9 +102,9 @@ def unir_imagenes(
     # Ahora creo una máscara del primer plano y su máscara inversa también.
     primer_plano_gris = cv.cvtColor(primer_plano, cv.COLOR_BGR2GRAY)
     _, mascara = cv.threshold(primer_plano_gris, 10, 255, cv.THRESH_BINARY)
-    # máscara = cv.erode(máscara, None)
+    # mascara = cv.erode(mascara, None)
     # kernel = cv.getStructuringElement(cv.MORPH_RECT, (3, 3))
-    # máscara = cv.morphologyEx(máscara, cv.MORPH_OPEN, kernel)
+    # mascara = cv.morphologyEx(mascara, cv.MORPH_OPEN, kernel)
     mascara_inv = cv.bitwise_not(mascara)
 
     # Deja en negro (0, 0, 0) el area del logo en zoom_fondo_segundo_plano
@@ -158,8 +158,8 @@ def main():
     color_marca = [intensidad] * 3  # (27, 27, 27)
 
     fondo = dibuja_fondo(color_fondo, tamano)
-    fondo = dibuja_puntos(fondo, color_marca, 30, 2)
-    # fondo = dibuja_rejilla(fondo, color_marca, 30, 2)
+    # fondo = dibuja_puntos(fondo, color_marca, 30, 2)
+    fondo = dibuja_rejilla(fondo, color_marca, 30, 2)
 
     fondo = cv.cvtColor(fondo, cv.COLOR_RGB2BGR)
     fondo = cv.GaussianBlur(fondo, (3, 3), 0)
@@ -167,16 +167,17 @@ def main():
     # Invertir colores del fondo
     # fondo = cv.bitwise_not(fondo)
 
-    logo = cv.imread("fondos/images/alpha.png")
+    logo = cv.imread("src/fondos/images/alpha.png")
     # Cambiar tamaño de la imagen en primer plano
     logo = cambiar_tamano(logo, 0.12)
     # Poner el logo en el fondo
     fondo = unir_imagenes(logo, fondo, (1830, 990))
 
     # Guardarla
-    # cv.imwrite('fondos/images/fondo_lineas_logo.png', fondo)
-    # cv.imwrite("fondos/images/fondo_blanco_puntos_logo.png", fondo)
-    cv.imwrite("fondos/images/fondo_negro_puntos_logo.png", fondo)
+    # cv.imwrite('src/fondos/images/fondo_lineas_logo.png', fondo)
+    # cv.imwrite("src/fondos/images/fondo_blanco_puntos_logo.png", fondo)
+    # cv.imwrite("src/fondos/images/fondo_negro_puntos_logo.png", fondo)
+    cv.imwrite("src/fondos/images/fondo_negro_lineas_logo.png", fondo)
 
 
 if __name__ == "__main__":

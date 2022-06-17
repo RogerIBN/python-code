@@ -27,50 +27,51 @@ def cambiar_tamano(imagen, cambio: float):
     return cv.resize(imagen, (ancho, alto), interpolation=cv.INTER_AREA)
 
 
-def creador_carpetas(archivo: str) -> str:
-    """Crea las carpetas de destino para los archivos.
+def crear_destino(archivo: str) -> Path:
+    """Crea las carpetas de destino para un archivo.
 
     Args:
         archivo (str): Dirección del archivo.
 
     Returns:
-        str: nombre del archivo con extensión y su nueva dirección.
+        Path: Dirección final del archivo con su nuevo nombre.
     """
     # Extrae la dirección, el nombre del archivo y del alumne
     archivo = Path(archivo)
-    nombre_archivo = archivo.name
+
+    # Salva el nombre de la carpeta padre y el archivo
+    carpeta_padre_in, nombre_archivo = archivo.parent, archivo.name
+
+    # Extrae el nombre del alumne
     nombre_alumne = " ".join(nombre_archivo.split()[:-1])
-    carpeta_padre = archivo.parent
 
-    # Nombres de las carpetas nuevas
-    nueva_carpeta = carpeta_padre.with_name(f"{carpeta_padre.name} Carpetas")
-    carpeta_alumne = nueva_carpeta / nombre_alumne
+    # Determina la ubicación de la carpeta del alumne
+    carpeta_padre_out = carpeta_padre_in.with_name(f"{carpeta_padre_in.name} Carpetas")
+    carpeta_alumne = carpeta_padre_out / nombre_alumne
 
-    # Crea las nuevas carpetas sino existen
+    # Crea la nueva carpeta sino existe
     carpeta_alumne.mkdir(parents=True, exist_ok=True)
     print(f"Procesando la carpeta de {nombre_alumne}")
 
     # Crea la nueva dirección del archivo
-    nueva_direccion = carpeta_alumne / nombre_archivo
-    return nombre_archivo, nueva_direccion.as_posix()
+    return carpeta_alumne / nombre_archivo
 
 
 def main():
     """Función principal"""
-    # archivos = Path(input("Nombre de la carpeta: ")).glob(r"*.JPG")
     archivos = glob(input("Nombre de la carpeta: ") + r"\*.JPG")
     reduccion = float(input("Rango de reducción (0 < x < 1 ): "))
 
     for archivo in archivos:
         # Crea las carpetas necesarias
-        nombre_archivo, nueva_dirección = creador_carpetas(archivo)
+        direccion_destino = crear_destino(archivo)
 
         # Lee la imagen y la reduce
         img = cambiar_tamano(cv.imread(archivo), reduccion)
 
         # Guarda la imagen en la nueva dirección
-        cv.imwrite(nueva_dirección, img)
-        print(f"Copiado {nombre_archivo} reducido al {reduccion:.2%}.")
+        cv.imwrite(direccion_destino.as_posix(), img)
+        print(f"Copiado {direccion_destino.name} reducido al {reduccion:.2%}.")
 
     input(f"Terminado procesado de {len(archivos)} archivos...")
 
