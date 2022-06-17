@@ -56,8 +56,7 @@ def resolver(sudoku: list[list[int]]):
                     sudoku[pos_y][pos_x] = num
                     # Sigue detectando
                     resolver(sudoku)
-                    # Si no es posible poner el numero
-                    # deshaz el intento anterior
+                    # Si no es posible poner el numero deshaz el intento anterior
                     # vaciando la celda
                     sudoku[pos_y][pos_x] = 0
             # Prueba otro número
