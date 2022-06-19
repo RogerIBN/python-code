@@ -22,10 +22,11 @@
     ],
     "cSpell.words": [
         "ggplot",
+        "ndindex",
         "padx",
         "pady",
         "rappi",
-        "tkagg",
+        "tkagg"
     ],
     "python.linting.pylintEnabled": false,
     "python.formatting.provider": "black"
