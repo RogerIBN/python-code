@@ -30,5 +30,6 @@
     ],
     "python.linting.pylintEnabled": true,
     "python.formatting.provider": "black",
-    "python.linting.pylintCategorySeverity.refactor": "Information"
+    "python.linting.pylintCategorySeverity.refactor": "Information",
+    "discord.enabled": false
 }
