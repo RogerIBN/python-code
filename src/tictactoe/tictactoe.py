@@ -12,10 +12,22 @@ class Player:
 
     name: str
     symbol: str
+    last_move: tuple[int] = None, None
+
+    def get_next_coordinate(self) -> tuple[int]:
+        """Get next coordinate for the player
+        Returns:
+            tuple(int): The next coordinate (y, x)
+        """
+        current_move = int(input("Posición y: ")), int(input("Posición x: "))
+        self.last_move = current_move
+        return self.last_move
 
 
 class TicTacToe:
     """Tic tac toe game class"""
+
+    valid_positions = {(pos_y, pos_x) for pos_y in range(3) for pos_x in range(3)}
 
     def __init__(self, player_1: Player, player_2: Player) -> None:
         """Initialize board"""
@@ -24,7 +36,7 @@ class TicTacToe:
         self.current_turn = player_1
         self.next_turn = player_2
 
-    def print_turn(self) -> None:
+    def _print_turn(self) -> None:
         """Print turn"""
         print(f"{self.current_turn.name}'s turn ({self.current_turn.symbol})")
         print(self)
@@ -33,7 +45,7 @@ class TicTacToe:
         """Return board"""
         return f"{self.board[0]}\n{self.board[1]}\n{self.board[2]}"
 
-    def check_win(self) -> bool:
+    def _check_win(self) -> bool:
         """Check if there is a winner"""
         symbol_match = self.board == self.current_turn.symbol
         # Check rows
@@ -49,36 +61,33 @@ class TicTacToe:
             return True
         return False
 
-    def check_tie(self) -> bool:
+    def _check_tie(self) -> bool:
         """Check if there is a tie"""
-        return all(" " not in row for row in self.board)
+        return (self.board != " ").all()
 
-    def check_valid(self, pos_y: int, pos_x: int) -> bool:
+    def _check_valid(self, coordinate: tuple[int]) -> bool:
         """Check if position is valid"""
-        return (pos_y in range(3) and pos_x in range(3)) and self.board[
-            pos_y, pos_x
-        ] == " "
+        return coordinate in self.valid_positions and self.board[coordinate] == " "
 
-    def update_board(self, pos_y: int, pos_x: int) -> bool:
+    def _update_board(self, coordinate: tuple[int]) -> bool:
         """Return if game ended and updates board
 
         Args:
-            pos_y (int): Y coordinate
-            pos_x (int): X coordinate
+            coordinate (tuple[int]): (y, x) coordinate
 
         Returns:
             bool: True if game ended
         """
-        if not self.check_valid(pos_y, pos_x):
-            print("Posición invalida")
+        if not self._check_valid(coordinate):
+            print("Posición invalida, intente nuevamente")
             return False
 
-        self.board[pos_y, pos_x] = self.current_turn.symbol
+        self.board[coordinate] = self.current_turn.symbol
 
-        if self.check_win():
+        if self._check_win():
             print(f"¡Ganador: {self.current_turn.name}!")
             return True
-        if self.check_tie():
+        if self._check_tie():
             print("¡Empate!")
             return True
         self.current_turn, self.next_turn = self.next_turn, self.current_turn
@@ -88,9 +97,9 @@ class TicTacToe:
         """Start game"""
         game_ended = False
         while not game_ended:
-            self.print_turn()
-            pos_y, pos_x = int(input("Posición y: ")), int(input("Posición x: "))
-            game_ended = self.update_board(pos_y, pos_x)
+            self._print_turn()
+            coordinate = self.current_turn.get_next_coordinate()
+            game_ended = self._update_board(coordinate)
         print(self)
 
 
