@@ -59,7 +59,7 @@ class TicTacToe:
                 board += "  |  ".join(row)
         return board
 
-    def _print_turn(self) -> None:
+    def _show_current_turn(self) -> None:
         """Print turn"""
         print(f"{self.current_turn.name}'s turn ({self.current_turn.symbol})")
         print(self)
@@ -88,6 +88,20 @@ class TicTacToe:
         """Check if position is valid"""
         return self.board[coordinate] == " "
 
+    def _game_over(self) -> bool:
+        """Check if game is over
+
+        Returns:
+            bool: True if game is over
+        """
+        if self._check_win():
+            print(f"¡Ganador: {self.current_turn.name}!")
+            return True
+        if self._check_tie():
+            print("¡Empate!")
+            return True
+        return False
+
     def _update_board(self, coordinate: Coordinate) -> bool:
         """Return if game ended and updates board
 
@@ -103,26 +117,23 @@ class TicTacToe:
 
         self.board[coordinate] = self.current_turn.symbol
 
-        if self._check_win():
-            print(f"¡Ganador: {self.current_turn.name}!")
+        if self._game_over():
             return True
-        if self._check_tie():
-            print("¡Empate!")
-            return True
+
         self.current_turn, self.next_turn = self.next_turn, self.current_turn
         return False
 
     def start(self) -> None:
         """Start game"""
-        game_ended = False
-        while not game_ended:
-            self._print_turn()
+        game_over = False
+        while not game_over:
+            self._show_current_turn()
             try:
                 coordinate = self.current_turn.get_next_coordinate()
             except ValueError as error:
                 print(error)
                 continue
-            game_ended = self._update_board(coordinate)
+            game_over = self._update_board(coordinate)
         print(self)
 
 
