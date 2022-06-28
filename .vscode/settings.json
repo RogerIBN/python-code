@@ -28,6 +28,6 @@
         "rappi",
         "tkagg"
     ],
-    "python.linting.pylintEnabled": false,
+    "python.linting.pylintEnabled": true,
     "python.formatting.provider": "black"
 }
