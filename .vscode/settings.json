@@ -29,5 +29,6 @@
         "tkagg"
     ],
     "python.linting.pylintEnabled": true,
-    "python.formatting.provider": "black"
+    "python.formatting.provider": "black",
+    "python.linting.pylintCategorySeverity.refactor": "Information"
 }

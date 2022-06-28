@@ -1,3 +1,5 @@
+# %%
+
 """Tic tac toe game"""
 
 from dataclasses import dataclass
@@ -33,18 +35,17 @@ class TicTacToe:
 
     def check_win(self) -> bool:
         """Check if there is a winner"""
+        symbol_match = self.board == self.current_turn.symbol
         # Check rows
-        for row in self.board:
-            if row[0] == row[1] == row[2] != " ":
-                return True
-        # Check columns
-        for col in range(3):
-            if self.board[0, col] == self.board[1, col] == self.board[2, col] != " ":
-                return True
-        # Check diagonals
-        if self.board[0, 0] == self.board[1, 1] == self.board[2, 2] != " ":
+        if symbol_match.all(axis=1).any():
             return True
-        if self.board[0, 2] == self.board[1, 1] == self.board[2, 0] != " ":
+        # Check columns
+        if symbol_match.all(axis=0).any():
+            return True
+        # Check diagonals
+        if symbol_match.diagonal().all():
+            return True
+        if np.fliplr(symbol_match).diagonal().all():
             return True
         return False
 
@@ -58,31 +59,42 @@ class TicTacToe:
             pos_y, pos_x
         ] == " "
 
-    def update_board(self, pos_y: int, pos_x: int) -> None:
-        """Update board"""
-        if self.check_valid(pos_y, pos_x):
-            self.board[pos_y, pos_x] = self.current_turn.symbol
-            self.current_turn, self.next_turn = self.next_turn, self.current_turn
-        else:
+    def update_board(self, pos_y: int, pos_x: int) -> bool:
+        """Return if game ended and updates board
+
+        Args:
+            pos_y (int): Y coordinate
+            pos_x (int): X coordinate
+
+        Returns:
+            bool: True if game ended
+        """
+        if not self.check_valid(pos_y, pos_x):
             print("Posición invalida")
+            return False
+
+        self.board[pos_y, pos_x] = self.current_turn.symbol
+
+        if self.check_win():
+            print(f"¡Ganador: {self.current_turn.name}!")
+            return True
+        if self.check_tie():
+            print("¡Empate!")
+            return True
+        self.current_turn, self.next_turn = self.next_turn, self.current_turn
+        return False
 
     def start(self) -> None:
         """Start game"""
-        while True:
-            if self.check_win():
-                print(f"Ganador: {self.next_turn.name}")
-                break
-            if self.check_tie():
-                print("Empate")
-                break
-
+        game_ended = False
+        while not game_ended:
             self.print_turn()
-
             pos_y, pos_x = int(input("Posición y: ")), int(input("Posición x: "))
-            self.update_board(pos_y, pos_x)
+            game_ended = self.update_board(pos_y, pos_x)
         print(self)
 
 
+# %%
 def main():
     """Main function"""
     player_1 = Player("Roger", "X")
@@ -93,3 +105,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# %%
