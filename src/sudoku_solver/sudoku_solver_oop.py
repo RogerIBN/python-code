@@ -1,7 +1,8 @@
 """Para mostrar la solución"""
 #%%
 from itertools import product
-from numpy import array
+
+import numpy as np
 
 
 class Sudoku:
@@ -14,14 +15,25 @@ class Sudoku:
             rejilla (list[list[int]]): Rejilla que almacena los números del sudoku.
         """
         self.rejilla = rejilla
+        self.rejilla_original = [row[:] for row in rejilla]
+
+    def __repr__(self) -> str:
+        return f"{__class__.__name__}:(\n{np.array(self.rejilla_original)}\n)"
 
     def __str__(self) -> str:
-        """Método a llamar al convertir el sudoku en string.
-
-        Returns:
-            str: Representación de la partida de sudoku.
-        """
-        return f"{__class__.__name__}:(\n{array(self.rejilla)}\n)"
+        sudoku_str = ""
+        for row_index, row in enumerate(self.rejilla, start=1):
+            chunks = (
+                " ".join(str(num) for num in row[chunk_index : chunk_index + 3])
+                for chunk_index in range(0, 9, 3)
+            )
+            sudoku_str += "  |  ".join(chunks)
+            if row_index >= 9:
+                continue
+            sudoku_str += "\n"
+            if row_index % 3 == 0:
+                sudoku_str += "------ + ------- + ------\n"
+        return sudoku_str
 
     def posible_poner(self, pos_y: int, pos_x: int, num: int) -> bool:
         """Detecta si un numero es posible colocarlo
@@ -83,34 +95,23 @@ class Sudoku:
 
     def salvar_respuesta(self, filename: str) -> None:
         """Guarda la respuesta en un archivo con el siguiente formato
-        6 3 9 | 4 2 5 | 7 1 8
-        2 4 8 | 1 3 7 | 9 6 5
-        5 7 1 | 9 6 8 | 3 4 2
-        ----- + ----- + -----
-        1 6 2 | 7 5 4 | 8 3 9
-        4 8 3 | 6 9 2 | 5 7 1
-        9 5 7 | 3 8 1 | 6 2 4
-        ----- + ----- + -----
-        8 2 6 | 5 4 3 | 1 9 7
-        3 1 5 | 2 7 9 | 4 8 6
-        7 9 4 | 8 1 6 | 2 5 3"""
+        6 3 9  |  4 2 5  |  7 1 8
+        2 4 8  |  1 3 7  |  9 6 5
+        5 7 1  |  9 6 8  |  3 4 2
+        ------ + ------- + ------
+        1 6 2  |  7 5 4  |  8 3 9
+        4 8 3  |  6 9 2  |  5 7 1
+        9 5 7  |  3 8 1  |  6 2 4
+        ------ + ------- + ------
+        8 2 6  |  5 4 3  |  1 9 7
+        3 1 5  |  2 7 9  |  4 8 6
+        7 9 4  |  8 1 6  |  2 5 3
+        ========================="""
         with open(filename, "a", encoding="utf-8") as file:
-            for fil in range(9):
-                for col in range(9):
-                    file.write(str(self.rejilla[fil][col]))
-                    if col < 8:
-                        file.write(" ")
-                        if (col + 1) % 3 == 0:
-                            file.write("| ")
-                if fil < 8 and (fil + 1) % 3 == 0:
-                    file.write("\n----- + ----- + -----")
-                file.write("\n")
-            file.write("=" * 21 + "\n")
+            file.write(f"{self}\n=========================\n")
 
 
 #%%
-
-
 def main():
     """Programa principal"""
 

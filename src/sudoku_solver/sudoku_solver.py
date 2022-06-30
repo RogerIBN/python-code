@@ -2,7 +2,8 @@
 """Para mostrar la solución"""
 
 from itertools import product
-from numpy import array
+
+import numpy as np
 
 
 def posible_poner(sudoku: list[list[int]], pos_y: int, pos_x: int, num: int) -> bool:
@@ -61,7 +62,7 @@ def resolver(sudoku: list[list[int]]):
                     sudoku[pos_y][pos_x] = 0
             # Prueba otro número
             return
-    print(array(sudoku))
+    print(np.array(sudoku))
     # Si no hay casillas vacías, terminaste con una respuesta
     # Muéstrame
     # Pausa el proceso y pregunta si quieres continuar.
@@ -69,8 +70,6 @@ def resolver(sudoku: list[list[int]]):
 
 
 #%%
-
-
 def main():
     """Programa principal"""
     sudoku = [
