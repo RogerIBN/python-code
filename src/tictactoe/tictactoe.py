@@ -1,7 +1,8 @@
+"""
+Tic tac toe game
+===
+"""
 # %%
-
-"""Tic tac toe game"""
-
 from dataclasses import dataclass, field
 
 import numpy as np
@@ -50,13 +51,12 @@ class TicTacToe:
 
     def __str__(self) -> str:
         """Return board"""
-        board = str()
-        for index, row in enumerate(self.board):
-            if index < (BOARD_SIZE - 1):
-                board += f"{'  |  '.join(row)}\n"
-                board += f"-- + {'--- + ' * (BOARD_SIZE - 2)}--\n"
-            else:
-                board += "  |  ".join(row)
+        board = ""
+        for index, row in enumerate(self.board, start=1):
+            board += "  |  ".join(row)
+            if index >= BOARD_SIZE:
+                continue
+            board += f"\n-- + {'--- + ' * (BOARD_SIZE - 2)}--\n"
         return board
 
     def _show_current_turn(self) -> None:

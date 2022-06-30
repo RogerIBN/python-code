@@ -28,8 +28,8 @@
         "rappi",
         "tkagg"
     ],
-    "python.linting.pylintEnabled": true,
     "python.formatting.provider": "black",
+    "python.linting.pylintEnabled": true,
     "python.linting.pylintCategorySeverity.refactor": "Information",
     "discord.enabled": false
 }
