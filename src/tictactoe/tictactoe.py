@@ -4,11 +4,39 @@ Tic tac toe game
 """
 # %%
 from dataclasses import dataclass, field
+from typing import Optional
 
 import numpy as np
 
+from command_line_interface import CommandLineInterface
+from user_interface import UserInterface
+
 BOARD_SIZE = 3
-Coordinate = tuple[int]
+Coordinates = tuple[int, int]
+
+
+class CoordinateNotInRangeError(Exception):
+    """Coordinates not in range error"""
+
+    def __init__(
+        self,
+        message: Optional[str] = "One or both coordinates aren't in range",
+        coordinates: Optional[Coordinates] = None,
+        close_open_limits: Optional[tuple[int, int]] = None,
+    ) -> None:
+        if coordinates:
+            message = f"Coordinates{coordinates} -> {message}"
+        if close_open_limits:
+            min_close, max_open = close_open_limits
+            message = f"{message} [{min_close}, {max_open})"
+
+        self.coordinates = coordinates
+        self.close_open_limits = close_open_limits
+        self.message = message
+        super().__init__(self.message)
+
+    def __str__(self) -> str:
+        return self.message
 
 
 @dataclass
@@ -17,37 +45,38 @@ class Player:
 
     name: str
     symbol: str
-    last_move: Coordinate = None, None
-    valid_positions: set[tuple[int]] = field(
-        default_factory=lambda: set(np.ndindex((BOARD_SIZE, BOARD_SIZE)))
-    )
+    last_move: Coordinates = None, None
 
-    def get_next_coordinate(self) -> Coordinate:
-        """Get next coordinate for the player
+    def get_next_coordinates(self) -> Coordinates:
+        """Get next coordinates for the player
+
         Returns:
-            tuple(int): The next coordinate (y, x)
+            tuple(int): The next (y, x) coordinates
         """
-        current_move = tuple(
-            int(axis) for axis in input("Posición -> y, x: ").split(",")
-        )
-
-        if current_move not in self.valid_positions:
-            raise ValueError(
-                f"{current_move} -> y or x coordinate is not in [0, {BOARD_SIZE + 1}) range"
+        coordinates_str = input("Posición -> y, x: ").split(",")
+        pos_y, pos_x = (int(axis) for axis in coordinates_str)
+        if not (0 <= pos_y < BOARD_SIZE and 0 <= pos_x < BOARD_SIZE):
+            raise CoordinateNotInRangeError(
+                coordinates=(pos_y, pos_x),
+                close_open_limits=(0, BOARD_SIZE),
             )
-        self.last_move = current_move
+
+        self.last_move = pos_y, pos_x
         return self.last_move
 
 
+@dataclass
 class TicTacToe:
     """Tic tac toe game class"""
 
-    def __init__(self, current_turn: Player, next_turn: Player) -> None:
-        """Initialize board"""
+    user_interfase: UserInterface
+    current_turn: Player
+    next_turn: Player
+    board: np.ndarray[str] = field(init=False)
+
+    def __post_init__(self) -> None:
         self.board = np.zeros((BOARD_SIZE, BOARD_SIZE), dtype=str)
         self.board[:] = " "
-        self.current_turn = current_turn
-        self.next_turn = next_turn
 
     def __str__(self) -> str:
         """Return board"""
@@ -59,12 +88,7 @@ class TicTacToe:
             board += f"\n-- + {'--- + ' * (BOARD_SIZE - 2)}--\n"
         return board
 
-    def _show_current_turn(self) -> None:
-        """Print turn"""
-        print(f"{self.current_turn.name}'s turn ({self.current_turn.symbol})")
-        print(self)
-
-    def _check_win(self) -> bool:
+    def _is_a_win(self) -> bool:
         """Check if there is a winner"""
         symbol_match = self.board == self.current_turn.symbol
         # Check rows
@@ -80,70 +104,76 @@ class TicTacToe:
             return True
         return False
 
-    def _check_tie(self) -> bool:
+    def _is_a_tie(self) -> bool:
         """Check if there is a tie"""
         return (self.board != " ").all()
 
-    def _check_valid(self, coordinate: Coordinate) -> bool:
+    def _is_coordinate_available(self, coordinates: Coordinates) -> bool:
         """Check if position is valid"""
-        return self.board[coordinate] == " "
+        return self.board[coordinates] == " "
 
-    def _game_over(self) -> bool:
+    def _is_game_over(self) -> bool:
         """Check if game is over
 
         Returns:
             bool: True if game is over
         """
-        if self._check_win():
-            print(f"¡Ganador: {self.current_turn.name}!")
+        if self._is_a_win():
+            self.user_interfase.display_winner(self.current_turn.name)
             return True
-        if self._check_tie():
-            print("¡Empate!")
+        if self._is_a_tie():
+            self.user_interfase.display_tie()
             return True
         return False
 
-    def _update_board(self, coordinate: Coordinate) -> bool:
-        """Return if game ended and updates board
+    def _update_board(self, coordinates: Coordinates) -> bool:
+        """Updates board
 
         Args:
-            coordinate (Coordinate): (y, x) coordinate
-
-        Returns:
-            bool: True if game ended
+            coordinates (Coordinates): (y, x) coordinates
         """
-        if not self._check_valid(coordinate):
-            print("Posición invalida, intente nuevamente")
-            return False
+        if not self._is_coordinate_available(coordinates):
+            self.user_interfase.display_coordinate_not_available(*coordinates)
+            return
 
-        self.board[coordinate] = self.current_turn.symbol
+        self.board[coordinates] = self.current_turn.symbol
 
-        if self._game_over():
-            return True
-
+    def _get_next_turn(self) -> None:
+        """Change the turn for the next player"""
         self.current_turn, self.next_turn = self.next_turn, self.current_turn
-        return False
 
-    def start(self) -> None:
+    def start_game(self) -> None:
         """Start game"""
-        game_over = False
-        while not game_over:
-            self._show_current_turn()
+        while True:
+            self.user_interfase.display_current_turn(
+                player_name=self.current_turn.name,
+                player_symbol=self.current_turn.symbol,
+                board=str(self),
+            )
+
             try:
-                coordinate = self.current_turn.get_next_coordinate()
-            except ValueError as error:
-                print(error)
+                coordinates = self.current_turn.get_next_coordinates()
+            except (ValueError, CoordinateNotInRangeError) as value_error:
+                self.user_interfase.display_error(value_error)
                 continue
-            game_over = self._update_board(coordinate)
+
+            self._update_board(coordinates)
+
+            if self._is_game_over():
+                break
+
+            self._get_next_turn()
         print(self)
 
 
 # %%
 def main():
     """Main function"""
+    command_line_interface = CommandLineInterface()
     player_1 = Player("Roger", "\N{Ballot X}")
     player_2 = Player("Karla", "\N{White Circle}")
-    game = TicTacToe(player_1, player_2)
-    game.start()
+    game = TicTacToe(command_line_interface, player_1, player_2)
+    game.start_game()
 
 
 if __name__ == "__main__":

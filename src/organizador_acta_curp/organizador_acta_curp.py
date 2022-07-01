@@ -43,7 +43,7 @@ class MueveCurpActa:
         alto = int(alto * cambio)
         return cv.resize(imagen, (ancho, alto), interpolation=cv.INTER_AREA)
 
-    def crear_destino(self, archivo: Path) -> Path:
+    def _crear_destino(self, archivo: Path) -> Path:
         """Crea las carpetas de destino para un archivo.
 
         Args:
@@ -77,7 +77,7 @@ class MueveCurpActa:
 
         for archivo in archivos:
             # Crea las carpetas necesarias
-            direccion_destino = self.crear_destino(Path(archivo))
+            direccion_destino = self._crear_destino(Path(archivo))
 
             # Lee la imagen y la reduce
             img = self.cambiar_tamano(cv.imread(archivo), reduccion)
