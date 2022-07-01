@@ -45,3 +45,11 @@ class UserInterface(Protocol):
             pos_x (int): Coordinate x
         """
         raise NotImplementedError()
+
+    def get_next_coordinates(self) -> tuple[int, int]:
+        """Get next coordinate
+
+        Returns:
+            tuple[int, int]: The next coordinate
+        """
+        raise NotImplementedError()

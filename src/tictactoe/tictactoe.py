@@ -15,7 +15,7 @@ BOARD_SIZE = 3
 Coordinates = tuple[int, int]
 
 
-class CoordinateNotInRangeError(Exception):
+class CoordinateNotInRangeError(ValueError):
     """Coordinates not in range error"""
 
     def __init__(
@@ -45,24 +45,24 @@ class Player:
 
     name: str
     symbol: str
-    last_move: Coordinates = None, None
+    _last_move: Coordinates = None, None
 
-    def get_next_coordinates(self) -> Coordinates:
-        """Get next coordinates for the player
+    @property
+    def last_move(self) -> Coordinates:
+        """Last move property"""
+        return self._last_move
 
-        Returns:
-            tuple(int): The next (y, x) coordinates
-        """
-        coordinates_str = input("Posición -> y, x: ").split(",")
-        pos_y, pos_x = (int(axis) for axis in coordinates_str)
-        if not (0 <= pos_y < BOARD_SIZE and 0 <= pos_x < BOARD_SIZE):
+    @last_move.setter
+    def last_move(self, coordinates: Coordinates):
+        # sourcery skip: invert-any-all
+        """Last move setter of coordinates"""
+        if not all(0 <= coordinate < BOARD_SIZE for coordinate in coordinates):
             raise CoordinateNotInRangeError(
-                coordinates=(pos_y, pos_x),
+                coordinates=coordinates,
                 close_open_limits=(0, BOARD_SIZE),
             )
 
-        self.last_move = pos_y, pos_x
-        return self.last_move
+        self._last_move = coordinates
 
 
 @dataclass
@@ -72,7 +72,7 @@ class TicTacToe:
     user_interfase: UserInterface
     current_turn: Player
     next_turn: Player
-    board: np.ndarray[str] = field(init=False)
+    board: np.ndarray = field(init=False)
 
     def __post_init__(self) -> None:
         self.board = np.zeros((BOARD_SIZE, BOARD_SIZE), dtype=str)
@@ -152,9 +152,10 @@ class TicTacToe:
             )
 
             try:
-                coordinates = self.current_turn.get_next_coordinates()
-            except (ValueError, CoordinateNotInRangeError) as value_error:
-                self.user_interfase.display_error(value_error)
+                coordinates = self.user_interfase.get_next_coordinates()
+                self.current_turn.last_move = coordinates
+            except ValueError as error:
+                self.user_interfase.display_error(error)
                 continue
 
             self._update_board(coordinates)

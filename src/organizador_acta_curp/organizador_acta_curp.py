@@ -11,6 +11,8 @@ Mat = np.ndarray[int, np.dtype[np.generic]]
 
 
 class MueveCurpActa:
+    """Clase para mover archivos de una carpeta a otra"""
+
     def __init__(self, carpeta_origen: Path):
         """Constructor de la clase.
 

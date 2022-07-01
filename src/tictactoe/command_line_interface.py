@@ -48,3 +48,13 @@ class CommandLineInterface:
             pos_x (int): Coordinate x
         """
         print(f"Box {pos_y, pos_x} already taken. Please try again...")
+
+    @staticmethod
+    def get_next_coordinates() -> tuple[int, int]:
+        """Get next coordinate
+
+        Returns:
+            tuple[int, int]: The next coordinate
+        """
+        coordinates_str = input("Position -> y, x: ").split(",")
+        return tuple(int(axis) for axis in coordinates_str)
