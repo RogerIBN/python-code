@@ -22,15 +22,18 @@ class Sudoku:
 
     def __str__(self) -> str:
         sudoku_str = [
-            [" ".join(str(num) for num in fil[col : col + 3]) for col in range(0, 9, 3)]
+            [
+                " ".join(str(num) for num in fil[col_index : col_index + 3])
+                for col_index in range(0, 9, 3)
+            ]
             for fil in self.rejilla
         ]
         sudoku_str = [
             "\n".join(
-                "  |  ".join(cuadrante)
-                for cuadrante in sudoku_str[cuadrante_fil : cuadrante_fil + 3]
+                "  |  ".join(fil)
+                for fil in sudoku_str[cuadrante_col_index : cuadrante_col_index + 3]
             )
-            for cuadrante_fil in range(0, 9, 3)
+            for cuadrante_col_index in range(0, 9, 3)
         ]
         return "\n------ + ------- + ------\n".join(sudoku_str)
 
