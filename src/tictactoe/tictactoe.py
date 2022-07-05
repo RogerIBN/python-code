@@ -80,13 +80,8 @@ class TicTacToe:
 
     def __str__(self) -> str:
         """Return board"""
-        board = ""
-        for index, row in enumerate(self.board, start=1):
-            board += "  |  ".join(row)
-            if index >= BOARD_SIZE:
-                continue
-            board += f"\n-- + {'--- + ' * (BOARD_SIZE - 2)}--\n"
-        return board
+        rows = ("  |  ".join(row) for row in self.board)
+        return f"\n-- + {'--- + ' * (BOARD_SIZE - 2)}--\n".join(rows)
 
     def _is_a_win(self) -> bool:
         """Check if there is a winner"""

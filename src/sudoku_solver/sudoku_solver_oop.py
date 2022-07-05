@@ -21,19 +21,18 @@ class Sudoku:
         return f"{__class__.__name__}:(\n{np.array(self.rejilla_original)}\n)"
 
     def __str__(self) -> str:
-        sudoku_str = ""
-        for row_index, row in enumerate(self.rejilla, start=1):
-            chunks = (
-                " ".join(str(num) for num in row[chunk_index : chunk_index + 3])
-                for chunk_index in range(0, 9, 3)
+        sudoku_str = [
+            [" ".join(str(num) for num in fil[col : col + 3]) for col in range(0, 9, 3)]
+            for fil in self.rejilla
+        ]
+        sudoku_str = [
+            "\n".join(
+                "  |  ".join(cuadrante)
+                for cuadrante in sudoku_str[cuadrante_fil : cuadrante_fil + 3]
             )
-            sudoku_str += "  |  ".join(chunks)
-            if row_index >= 9:
-                continue
-            sudoku_str += "\n"
-            if row_index % 3 == 0:
-                sudoku_str += "------ + ------- + ------\n"
-        return sudoku_str
+            for cuadrante_fil in range(0, 9, 3)
+        ]
+        return "\n------ + ------- + ------\n".join(sudoku_str)
 
     def posible_poner(self, pos_y: int, pos_x: int, num: int) -> bool:
         """Detecta si un numero es posible colocarlo
