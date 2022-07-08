@@ -110,7 +110,7 @@ class Sudoku:
         7 9 4  |  8 1 6  |  2 5 3
         ========================="""
         with open(filename, "a", encoding="utf-8") as file:
-            file.write(f"{self}\n=========================\n")
+            file.write(f"{self}\n{'='*25}\n")
 
 
 #%%

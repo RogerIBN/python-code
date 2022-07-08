@@ -7,30 +7,30 @@ from typing import Sequence, Optional
 # %%
 
 
-def subconv(archivo: str, nombre: Optional[str] = None, seg: Optional[int] = 3) -> None:
+def subconv(
+    archivo_entrada: str, nombre: Optional[str] = None, seg: Optional[int] = 3
+) -> None:
     """
     Crea un archivo de extensión srt tomando un archivo de script de
     youtube.
     Args:
-        archivo (str): Dirección del archivo.
+        archivo_entrada (str): Dirección del archivo.
         nombre (str, opcional): Nombre del archivo.
         Defaults to original name.
         seg (int, opcional): Duración del último subtítulo.
-        Defaults to 3.
+        Default de 3.
     """
     # Busca el nombre del archivo para crear uno que se llame igual
     # pero con extensión .srt y en la misma dirección del
     # archivo original
 
-    resultado = Path(archivo).with_suffix(".srt")
-
-    if nombre:  # Si le metiste un nombre al archivo de salida
-        resultado = resultado.with_stem(nombre)
+    archivo_salida = Path(archivo_entrada).with_suffix(".srt")
+    archivo_salida = archivo_salida.with_stem(nombre) if nombre else archivo_salida
 
     # Lee los subtitulos y crea el nuevo archivo
     with (
-        open(archivo, "r", encoding="utf-8") as txt,
-        open(resultado, "w", encoding="utf-8") as srt,
+        open(archivo_entrada, "r", encoding="utf-8") as txt,
+        open(archivo_salida, "w", encoding="utf-8") as srt,
     ):
         # Separa los tiempos de las frases en una tupla para tiempos
         # y en un generador para las frases
@@ -63,7 +63,7 @@ def get_second_time(tiempos: Sequence[str], i: int, last_seg: int) -> str:
     """
     try:
         # Da formato a los tiempos
-        segundo_t = f"00:{tiempos[i + 1]},00"
+        return f"00:{tiempos[i + 1]},00"
 
     except IndexError:  # Justo cuando falte el último tiempo
         # Tomando el último tiempo del archivo se le da formato
@@ -71,8 +71,7 @@ def get_second_time(tiempos: Sequence[str], i: int, last_seg: int) -> str:
         # desaparece el último subtítulo
         segundo_t = datetime.strptime(tiempos[i], "%M:%S")
         segundo_t += timedelta(seconds=last_seg)
-        segundo_t = f"{segundo_t.strftime('%H:%M:%S')},00"
-    return segundo_t
+        return f"{segundo_t.strftime('%H:%M:%S')},00"
 
 
 def main():
