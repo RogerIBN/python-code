@@ -31,7 +31,10 @@
         "tkagg"
     ],
     "python.formatting.provider": "black",
-    "python.linting.pylintEnabled": true,
-    "python.linting.pylintCategorySeverity.refactor": "Information",
-    "discord.enabled": false
+    "discord.enabled": false,
+    "files.autoSave": "onFocusChange",
+    "pylint.severity": {
+        "refactor": "Information"
+    },
+    // "window.commandCenter": true,
 }

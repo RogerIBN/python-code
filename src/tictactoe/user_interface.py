@@ -37,15 +37,6 @@ class UserInterface(Protocol):
         """Display tie message"""
         raise NotImplementedError()
 
-    def display_coordinate_not_available(self, pos_y: int, pos_x: int) -> None:
-        """Display coordinate not available message
-
-        Args:
-            pos_y (int): Coordinate y
-            pos_x (int): Coordinate x
-        """
-        raise NotImplementedError()
-
     def get_next_coordinates(self) -> tuple[int, int]:
         """Get next coordinate
 

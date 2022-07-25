@@ -1,4 +1,15 @@
-def itemIntCheck(user_number):
+"""Game script"""
+
+
+def is_int(user_number: str) -> bool:
+    """Checks if the user input is an integer
+
+    Args:
+        user_number (Any): User input
+
+    Returns:
+        bool: If the user input is an integer
+    """
     try:
         int(user_number)
         return True
@@ -7,10 +18,10 @@ def itemIntCheck(user_number):
         return False
 
 
-theyInputRight = False
+input_ok: bool = False
 
-while not theyInputRight:
-    menu_Number_Select = input("Please select from 1 through: ")
-    theyInputRight = itemIntCheck(menu_Number_Select)
+while not input_ok:
+    menu_number_input = input("Please select from 1 through: ")
+    input_ok: bool = is_int(menu_number_input)
 
-menu_Number_Select = int(menu_Number_Select)
+menu_number_input = int(menu_number_input)

@@ -69,8 +69,7 @@ def get_second_time(tiempos: Sequence[str], i: int, last_seg: int) -> str:
         # Tomando el último tiempo del archivo se le da formato
         # y suma 'last_seg' segundos para obtener el momento cuando
         # desaparece el último subtítulo
-        segundo_t = datetime.strptime(tiempos[i], "%M:%S")
-        segundo_t += timedelta(seconds=last_seg)
+        segundo_t = datetime.strptime(tiempos[i], "%M:%S") + timedelta(seconds=last_seg)
         return f"{segundo_t.strftime('%H:%M:%S')},00"
 
 

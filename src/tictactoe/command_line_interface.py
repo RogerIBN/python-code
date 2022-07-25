@@ -40,16 +40,6 @@ class CommandLineInterface:
         print("It's a tie!")
 
     @staticmethod
-    def display_coordinate_not_available(pos_y: int, pos_x: int) -> None:
-        """Display coordinate not available message
-
-        Args:
-            pos_y (int): Coordinate y
-            pos_x (int): Coordinate x
-        """
-        print(f"Box {pos_y, pos_x} already taken. Please try again...")
-
-    @staticmethod
     def get_next_coordinates() -> tuple[int, int]:
         """Get next coordinate
 

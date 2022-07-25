@@ -96,6 +96,16 @@ def cambiar_tamano(img: Imagen, cambio: float) -> Imagen:
 def unir_imagenes(
     primer_plano: Imagen, segundo_plano: Imagen, coordenadas: list[int, int]
 ) -> Imagen:
+    """Unir dos imagenes en una sola.
+
+    Args:
+        primer_plano (Imagen): La imagen que se va a unir.
+        segundo_plano (Imagen): El fondo que se va a unir.
+        coordenadas (list[int, int]): Posición de la imagen que se va a unir.
+
+    Returns:
+        Imagen: _description_
+    """
     # Quiero colocar el logo en las coordenadas (x, y), así que
     # creo zoom_fondo_segundo_plano
     x_coord, y_coord = coordenadas

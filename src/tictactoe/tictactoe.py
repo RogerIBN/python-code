@@ -128,9 +128,7 @@ class TicTacToe:
             coordinates (Coordinates): (y, x) coordinates
         """
         if not self._is_coordinate_available(coordinates):
-            self.user_interfase.display_coordinate_not_available(*coordinates)
-            return
-
+            raise ValueError(f"Box {coordinates} already taken")
         self.board[coordinates] = self.current_turn.symbol
 
     def _get_next_turn(self) -> None:
@@ -148,12 +146,13 @@ class TicTacToe:
 
             try:
                 coordinates = self.user_interfase.get_next_coordinates()
+                if len(coordinates) != 2:
+                    raise ValueError("Coordinates must be a tuple of length 2")
                 self.current_turn.last_move = coordinates
+                self._update_board(coordinates)
             except ValueError as error:
                 self.user_interfase.display_error(error)
                 continue
-
-            self._update_board(coordinates)
 
             if self._is_game_over():
                 break
