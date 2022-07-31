@@ -19,7 +19,6 @@ class MueveCurpActa:
 
         Args:
             carpeta_origen (str): Dirección de la carpeta de origen.
-            carpeta_destino (str): Dirección de la carpeta de destino.
         """
         self.carpeta_origen = Path(carpeta_origen)
         self.carpeta_destino = self.carpeta_origen.with_name(
@@ -32,13 +31,13 @@ class MueveCurpActa:
         un factor de proporción
 
         Args:
-            imagen (imagen): Imagen a cambiar.
+            imagen (Mat): Imagen a cambiar.
             cambio (float): Factor de cambio de tamaño
             0 < cambio < 1 = reducción
             cambio > 1 = aumento
 
         Returns:
-            imagen: Imagen con el tamaño cambiado.
+            Mat: Imagen con el tamaño cambiado.
         """
         alto, ancho, _ = imagen.shape
         # Redondea los nuevos tamaños a un valor entero
