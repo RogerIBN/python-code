@@ -1,5 +1,5 @@
 import numpy as np
-import cv2 as cv
+import cv2
 from crea_fondos import *
 
 
@@ -9,8 +9,8 @@ def aplicar_vineta(imagen, sigma=200):
 
     # Genera una mascara de viñeta usando los
     # kernel gaussianos resultantes
-    x_kernel = cv.getGaussianKernel(ancho, sigma * ancho / alto)
-    y_kernel = cv.getGaussianKernel(alto, sigma)
+    x_kernel = cv2.getGaussianKernel(ancho, sigma * ancho / alto)
+    y_kernel = cv2.getGaussianKernel(alto, sigma)
 
     # Generando la matriz del kernel resultante
     kernel = y_kernel * x_kernel.T
@@ -27,24 +27,24 @@ def aplicar_vineta(imagen, sigma=200):
 
 def main():
     # Leer la imagen
-    imagen = cv.imread("fondos/images/calle.jpg")
+    imagen = cv2.imread("fondos/images/calle.jpg")
 
     # Cambiar el tamaño de la imagen
     imagen = cambiar_tamano(imagen, 0.4)
 
-    cv.imshow("Original", imagen)
+    cv2.imshow("Original", imagen)
 
     imagen = aplicar_vineta(imagen)
 
     # displaying the vignette filter image
-    cv.imshow("VIGNETTE", imagen)
+    cv2.imshow("VIGNETTE", imagen)
 
     # Maintain output window until
     # user presses a key
-    cv.waitKey(0)
+    cv2.waitKey(0)
 
     # Destroying present windows on screen
-    cv.destroyAllWindows()
+    cv2.destroyAllWindows()
 
 
 if __name__ == "__main__":

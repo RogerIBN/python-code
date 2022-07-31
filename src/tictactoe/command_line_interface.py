@@ -46,5 +46,4 @@ class CommandLineInterface:
         Returns:
             tuple[int, int]: The next coordinate
         """
-        coordinates_str = input("Position -> y, x: ").split(",")
-        return tuple(int(axis) for axis in coordinates_str)
+        return tuple(int(axis) for axis in input("Position -> y, x: ").split(","))

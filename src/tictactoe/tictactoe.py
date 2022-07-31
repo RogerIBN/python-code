@@ -80,8 +80,9 @@ class TicTacToe:
 
     def __str__(self) -> str:
         """Return board"""
-        rows = ("  |  ".join(row) for row in self.board)
-        return f"\n-- + {'--- + ' * (BOARD_SIZE - 2)}--\n".join(rows)
+        return f"\n-- + {'--- + ' * (BOARD_SIZE - 2)}--\n".join(
+            "  |  ".join(row) for row in self.board
+        )
 
     def _is_a_win(self) -> bool:
         """Check if there is a winner"""

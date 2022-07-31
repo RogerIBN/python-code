@@ -1,10 +1,11 @@
 """Librerías para administrar directorios y
 manipulación de imágenes
 """
-from glob import glob
+#%%
+
 from pathlib import Path
 
-import cv2 as cv
+import cv2
 import numpy as np
 
 Mat = np.ndarray[int, np.dtype[np.generic]]
@@ -13,7 +14,7 @@ Mat = np.ndarray[int, np.dtype[np.generic]]
 class MueveCurpActa:
     """Clase para mover archivos de una carpeta a otra"""
 
-    def __init__(self, carpeta_origen: Path):
+    def __init__(self, carpeta_origen: str):
         """Constructor de la clase.
 
         Args:
@@ -43,7 +44,7 @@ class MueveCurpActa:
         # Redondea los nuevos tamaños a un valor entero
         ancho = int(ancho * cambio)
         alto = int(alto * cambio)
-        return cv.resize(imagen, (ancho, alto), interpolation=cv.INTER_AREA)
+        return cv2.resize(imagen, (ancho, alto), interpolation=cv2.INTER_AREA)
 
     def _crear_destino(self, archivo: Path) -> Path:
         """Crea las carpetas de destino para un archivo.
@@ -61,8 +62,9 @@ class MueveCurpActa:
         carpeta_alumne = self.carpeta_destino / nombre_alumne
 
         # Crea la nueva carpeta sino existe
+        if not carpeta_alumne.exists():
+            print(f"Procesando la carpeta de {nombre_alumne}")
         carpeta_alumne.mkdir(parents=True, exist_ok=True)
-        print(f"Procesando la carpeta de {nombre_alumne}")
 
         # Crea la nueva dirección del archivo
         return carpeta_alumne / archivo.name
@@ -75,19 +77,19 @@ class MueveCurpActa:
             0 < cambio < 1 = reducción
             cambio > 1 = aumento
         """
-        archivos = glob(self.carpeta_origen.as_posix() + r"\*.JPG")
 
-        for archivo in archivos:
+        contador = 0
+        for contador, archivo in enumerate(self.carpeta_origen.glob("*.JPG")):
             # Crea las carpetas necesarias
-            direccion_destino = self._crear_destino(Path(archivo))
+            direccion_destino = self._crear_destino(archivo)
 
             # Lee la imagen y la reduce
-            img = self.cambiar_tamano(cv.imread(archivo), reduccion)
+            img = self.cambiar_tamano(cv2.imread(str(archivo)), reduccion)
 
             # Guarda la imagen en la nueva dirección
-            cv.imwrite(direccion_destino.as_posix(), img)
+            cv2.imwrite(str(direccion_destino), img)
             print(f"Copiado {direccion_destino.name} reducido al {reduccion:.2%}.")
-        print(f"Terminado procesado de {len(archivos)} archivos...")
+        print(f"Terminado procesado de {contador} archivos...")
 
 
 def main():
@@ -98,5 +100,6 @@ def main():
     mueve_curp_acta.mover_archivos(reduccion)
 
 
+#%%
 if __name__ == "__main__":
     main()

@@ -25,7 +25,7 @@ def subconv(
     # archivo original
 
     archivo_salida = Path(archivo_entrada).with_suffix(".srt")
-    archivo_salida = archivo_salida.with_stem(nombre) if nombre else archivo_salida
+    archivo_salida = archivo_salida if not nombre else archivo_salida.with_stem(nombre)
 
     # Lee los subtitulos y crea el nuevo archivo
     with (
