@@ -143,6 +143,15 @@ def unir_imagenes(
 
 
 def aplicar_vineta(img: Imagen, sigma: int = 200) -> Imagen:
+    """Aplica una vineta a una imagen
+
+    Args:
+        img (Imagen): La imagen a la que se le va a aplicar la vineta.
+        sigma (int, optional): Valor de la intensidad. Defaults to 200.
+
+    Returns:
+        Imagen: Imagen con la vineta aplicada.
+    """
     # Calcular el alto y ancho de la imagen
     alto, ancho, _ = img.shape
 
