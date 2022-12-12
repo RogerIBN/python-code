@@ -85,6 +85,7 @@ class TicTacToe:
         )
 
     def _is_a_win(self) -> bool:
+        # sourcery skip: assign-if-exp, boolean-if-exp-identity, reintroduce-else
         """Check if there is a winner"""
         symbol_match = self.board == self.current_turn.symbol
         # Check rows

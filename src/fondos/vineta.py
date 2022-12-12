@@ -15,7 +15,7 @@ def aplicar_vineta(imagen, sigma=200):
     # Generando la matriz del kernel resultante
     kernel = y_kernel * x_kernel.T
 
-    # Creando una máscara y normalizandola usando una
+    # Creando una máscara y normalizándose usando una
     # función de numpy
     máscara = 255 * kernel / np.linalg.norm(kernel)
 

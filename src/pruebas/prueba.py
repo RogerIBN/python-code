@@ -1,27 +1,42 @@
-"""Game script"""
+"""Programa de ejemplo de como funcionan las clases"""
+# Declaración de la clase
+class Persona:
+    """Modelo de una persona"""
+
+    def __init__(
+        self, nombre: str, edad: int
+    ):  # __init__ es la palabra clave de la función que ejecuta una clase
+        # cuando instancia un objeto.
+        self.nombre = nombre  # Guarda la variable nombre como atributo del objeto
+        self.edad = edad  # Guarda la variable edad como atributo del objeto
+
+    def presentarse(self) -> None:  # Método del objeto mientras accede a sus atributos
+        """Método que imprime el nombre y la edad de la persona"""
+        print(f"{self.nombre}: Mi nombre es {self.nombre} y tengo {self.edad} años")
+
+    def saludar(
+        self, other: "Persona"
+    ) -> None:  # Método del objeto mientras accede a sus atributos y los de otro objeto
+        """Método que hace una persona salude a otra
+
+        Args:
+            other (Persona): La persona a saludar
+        """
+        print(f"{self.nombre}: Hola {other.nombre}, soy {self.nombre}")
 
 
-def is_int(user_number: str) -> bool:
-    """Checks if the user input is an integer
+# Crear los objetos de que pertenecen a la clase persona (instanciar)
+persona_1 = Persona(nombre="Roger", edad=24)
+persona_2 = Persona(nombre="Karla", edad=24)
 
-    Args:
-        user_number (Any): User input
+# Probar los métodos
+persona_1.presentarse()
+persona_2.presentarse()
 
-    Returns:
-        bool: If the user input is an integer
-    """
-    try:
-        int(user_number)
-        return True
-    except ValueError:
-        print("Enter a whole number only")
-        return False
+persona_1.saludar(persona_2)
 
-
-input_ok: bool = False
-
-while not input_ok:
-    menu_number_input = input("Please select from 1 through: ")
-    input_ok: bool = is_int(menu_number_input)
-
-menu_number_input = int(menu_number_input)
+# Acceder a los atributos (Probamos si sus edades son iguales)
+print(
+    f"¿{persona_1.nombre} y {persona_2.nombre} tienen la misma edad?\n"
+    + f"Respuesta: {persona_1.edad == persona_2.edad}",
+)
