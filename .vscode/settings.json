@@ -3,5 +3,4 @@
     "pylint.severity": {
         "refactor": "Information"
     },
-    // "window.commandCenter": true,
 }
