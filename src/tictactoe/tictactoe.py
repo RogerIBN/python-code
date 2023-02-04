@@ -7,7 +7,6 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 import numpy as np
-
 from command_line_interface import CommandLineInterface
 from user_interface import UserInterface
 
@@ -20,9 +19,9 @@ class CoordinateNotInRangeError(ValueError):
 
     def __init__(
         self,
-        message: Optional[str] = "One or both coordinates aren't in range",
+        message: str = "One or both coordinates aren't in range",
         coordinates: Optional[Coordinates] = None,
-        close_open_limits: Optional[tuple[int, int]] = None,
+        close_open_limits: Optional[Coordinates] = None,
     ) -> None:
         if coordinates:
             message = f"Coordinates{coordinates} -> {message}"
@@ -45,7 +44,7 @@ class Player:
 
     name: str
     symbol: str
-    _last_move: Coordinates = None, None
+    _last_move: Coordinates = -1, -1
 
     @property
     def last_move(self) -> Coordinates:
@@ -53,7 +52,7 @@ class Player:
         return self._last_move
 
     @last_move.setter
-    def last_move(self, coordinates: Coordinates):
+    def last_move(self, coordinates: Coordinates) -> None:
         # sourcery skip: invert-any-all
         """Last move setter of coordinates"""
         if not all(0 <= coordinate < BOARD_SIZE for coordinate in coordinates):
@@ -70,8 +69,8 @@ class TicTacToe:
     """Tic tac toe game class"""
 
     user_interfase: UserInterface
-    current_turn: Player
-    next_turn: Player
+    current_player: Player
+    next_player: Player
     board: np.ndarray = field(init=False)
 
     def __post_init__(self) -> None:
@@ -87,7 +86,7 @@ class TicTacToe:
     def _is_a_win(self) -> bool:
         # sourcery skip: assign-if-exp, boolean-if-exp-identity, reintroduce-else
         """Check if there is a winner"""
-        symbol_match = self.board == self.current_turn.symbol
+        symbol_match = self.board == self.current_player.symbol
         # Check rows
         if symbol_match.all(axis=1).any():
             return True
@@ -116,14 +115,14 @@ class TicTacToe:
             bool: True if game is over
         """
         if self._is_a_win():
-            self.user_interfase.display_winner(self.current_turn.name)
+            self.user_interfase.display_winner(self.current_player.name)
             return True
         if self._is_a_tie():
             self.user_interfase.display_tie()
             return True
         return False
 
-    def _update_board(self, coordinates: Coordinates) -> bool:
+    def _update_board(self, coordinates: Coordinates) -> None:
         """Updates board
 
         Args:
@@ -131,18 +130,18 @@ class TicTacToe:
         """
         if not self._is_coordinate_available(coordinates):
             raise ValueError(f"Box {coordinates} already taken")
-        self.board[coordinates] = self.current_turn.symbol
+        self.board[coordinates] = self.current_player.symbol
 
     def _get_next_turn(self) -> None:
         """Change the turn for the next player"""
-        self.current_turn, self.next_turn = self.next_turn, self.current_turn
+        self.current_player, self.next_player = self.next_player, self.current_player
 
     def start_game(self) -> None:
         """Start game"""
         while True:
             self.user_interfase.display_current_turn(
-                player_name=self.current_turn.name,
-                player_symbol=self.current_turn.symbol,
+                player_name=self.current_player.name,
+                player_symbol=self.current_player.symbol,
                 board=str(self),
             )
 
@@ -150,7 +149,7 @@ class TicTacToe:
                 coordinates = self.user_interfase.get_next_coordinates()
                 if len(coordinates) != 2:
                     raise ValueError("Coordinates must be a tuple of length 2")
-                self.current_turn.last_move = coordinates
+                self.current_player.last_move = coordinates
                 self._update_board(coordinates)
             except ValueError as error:
                 self.user_interfase.display_error(error)
@@ -164,7 +163,7 @@ class TicTacToe:
 
 
 # %%
-def main():
+def main() -> None:
     """Main function"""
     command_line_interface = CommandLineInterface()
     player_1 = Player("Roger", "\N{Ballot X}")

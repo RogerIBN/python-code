@@ -5,7 +5,7 @@ manipulación de imágenes
 
 from pathlib import Path
 
-import cv2
+import cv2 as cv
 import numpy as np
 
 Mat = np.ndarray[int, np.dtype[np.generic]]
@@ -43,7 +43,7 @@ class MueveCurpActa:
         # Redondea los nuevos tamaños a un valor entero
         ancho = int(ancho * cambio)
         alto = int(alto * cambio)
-        return cv2.resize(imagen, (ancho, alto), interpolation=cv2.INTER_AREA)
+        return cv.resize(imagen, (ancho, alto), interpolation=cv.INTER_AREA)
 
     def _crear_destino(self, archivo: Path) -> Path:
         """Crea las carpetas de destino para un archivo.
@@ -83,10 +83,10 @@ class MueveCurpActa:
             direccion_destino = self._crear_destino(archivo)
 
             # Lee la imagen y la reduce
-            img = self.cambiar_tamano(cv2.imread(str(archivo)), reduccion)
+            img = self.cambiar_tamano(cv.imread(str(archivo)), reduccion)
 
             # Guarda la imagen en la nueva dirección
-            cv2.imwrite(str(direccion_destino), img)
+            cv.imwrite(str(direccion_destino), img)
             print(f"Copiado {direccion_destino.name} reducido al {reduccion:.2%}.")
         print(f"Terminado procesado de {contador} archivos...")
 

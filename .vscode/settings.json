@@ -1,7 +1,5 @@
 {
-    "python.formatting.provider": "black",
     "discord.enabled": false,
-    "files.autoSave": "onFocusChange",
     "pylint.severity": {
         "refactor": "Information"
     },

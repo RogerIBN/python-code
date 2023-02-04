@@ -1,14 +1,15 @@
 # %%
 """Módulos para calcular el la duración del último subtítulo"""
+import sys
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Sequence, Optional
+from typing import Optional, Sequence
 
 # %%
 
 
-def subconv(
-    archivo_entrada: str, nombre: Optional[str] = None, seg: Optional[int] = 3
+def srt_from_raw_youtube(
+    archivo_entrada: str, nombre: Optional[str] = None, seg: float = 3
 ) -> None:
     """
     Crea un archivo de extensión srt tomando un archivo de script de
@@ -17,7 +18,7 @@ def subconv(
         archivo_entrada (str): Dirección del archivo.
         nombre (str, opcional): Nombre del archivo.
         Defaults to original name.
-        seg (int, opcional): Duración del último subtítulo.
+        seg (float): Duración del último subtítulo.
         Default de 3.
     """
     # Busca el nombre del archivo para crear uno que se llame igual
@@ -25,9 +26,9 @@ def subconv(
     # archivo original
 
     archivo_salida = Path(archivo_entrada).with_suffix(".srt")
-    archivo_salida = archivo_salida if not nombre else archivo_salida.with_stem(nombre)
+    archivo_salida = archivo_salida.with_stem(nombre) if nombre else archivo_salida
 
-    # Lee los subtitulos y crea el nuevo archivo
+    # Lee los subtítulos y crea el nuevo archivo
     with (
         open(archivo_entrada, "r", encoding="utf-8") as txt,
         open(archivo_salida, "w", encoding="utf-8") as srt,
@@ -50,13 +51,13 @@ def subconv(
             srt.write(frase + "\n" * 2)
 
 
-def get_second_time(tiempos: Sequence[str], i: int, last_seg: int) -> str:
+def get_second_time(tiempos: Sequence[str], i: int, last_seg: float) -> str:
     """Obtiene el segundo tiempo de la lista de tiempos para el subtítulo actual
 
     Args:
         tiempos (Sequence[str]): Los tiempos de los subtítulos
         i (int): Contador del subtítulo actual
-        last_seg (int): Duración del último subtítulo
+        last_seg (float): Duración del último subtítulo
 
     Returns:
         srt: Segundo tiempo
@@ -72,10 +73,15 @@ def get_second_time(tiempos: Sequence[str], i: int, last_seg: int) -> str:
         segundo_t = datetime.strptime(tiempos[i], "%M:%S") + timedelta(seconds=last_seg)
         return f"{segundo_t.strftime('%H:%M:%S')},00"
 
+    except ValueError:
+        # Si no se puede dar formato a los tiempos
+        print("Error: Tiempos inválidos")
+        sys.exit()
 
-def main():
+
+def main() -> None:
     """Programa principal"""
-    subconv("subtitulos/from_txt/yt_sub.txt")
+    srt_from_raw_youtube("src/subtitulos/yt_sub.txt")
 
 
 # %%
