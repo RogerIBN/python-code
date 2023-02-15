@@ -10,7 +10,7 @@ def main():
     Función principal
     """
     # Leer la imagen
-    image = cv.imread("fondos/images/calle.jpg")
+    image = cv.imread("src/backgrounds/images/calle.jpg")
 
     # Cambiar el tamaño de la imagen
     image = bg_maker.change_size(image, 0.4)

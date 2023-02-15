@@ -219,17 +219,17 @@ def main() -> None:
     # Invertir colores del fondo
     # background = cv.bitwise_not(background)
 
-    logo = cv.imread("src/fondos/images/alpha.png")
+    logo = cv.imread("src/backgrounds/images/alpha.png")
     # Cambiar tamaño de la imagen en primer plano
     logo = change_size(logo, 0.12)
     # Poner el logo en el fondo
     background = join_images(logo, background, (1830, 990))
 
     # Guardarla
-    # cv.imwrite('src/fondos/images/fondo_lineas_logo.png', background)
-    # cv.imwrite("src/fondos/images/fondo_blanco_puntos_logo.png", background)
-    # cv.imwrite("src/fondos/images/fondo_negro_puntos_logo.png", background)
-    cv.imwrite("src/fondos/images/fondo_negro_lineas_logo.png", background)
+    # cv.imwrite('src/backgrounds/images/fondo_lineas_logo.png', background)
+    # cv.imwrite("src/backgrounds/images/fondo_blanco_puntos_logo.png", background)
+    # cv.imwrite("src/backgrounds/images/fondo_negro_puntos_logo.png", background)
+    cv.imwrite("src/backgrounds/images/fondo_negro_lineas_logo.png", background)
 
 
 if __name__ == "__main__":
