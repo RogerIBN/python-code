@@ -1,8 +1,8 @@
 """
-Modulo para aplicar el filtro de vineta a una imagen
+Modulo para aplicar el filtro de viñeta a una imagen
 """
 import cv2 as cv
-import background_maker as bg_maker
+import src.backgrounds.background_maker as bg_maker
 
 
 def main():
