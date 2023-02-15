@@ -9,69 +9,80 @@ from typing import Optional, Sequence
 
 
 def srt_from_raw_youtube(
-    archivo_entrada: str, nombre: Optional[str] = None, seg: float = 3
+    input_file: str, name: Optional[str] = None, seg: float = 3
 ) -> None:
     """
-    Crea un archivo de extensión srt tomando un archivo de script de
-    youtube.
-    Args:
-        archivo_entrada (str): Dirección del archivo.
-        nombre (str, opcional): Nombre del archivo.
-        Defaults to original name.
-        seg (float): Duración del último subtítulo.
-        Default de 3.
+    Crea un archivo de extensión srt tomando un archivo de script de youtube.
+
+    Parameters
+    ----------
+    input_file : str
+        Dirección del archivo.
+    name : Optional[str], optional
+        Nombre del archivo, by default None
+    seg : float, optional
+        Duración del último subtítulo, by default 3
     """
     # Busca el nombre del archivo para crear uno que se llame igual
     # pero con extensión .srt y en la misma dirección del
     # archivo original
 
-    archivo_salida = Path(archivo_entrada).with_suffix(".srt")
-    archivo_salida = archivo_salida.with_stem(nombre) if nombre else archivo_salida
+    output_file = Path(input_file).with_suffix(".srt")
+    output_file = output_file.with_stem(name) if name else output_file
 
     # Lee los subtítulos y crea el nuevo archivo
     with (
-        open(archivo_entrada, "r", encoding="utf-8") as txt,
-        open(archivo_salida, "w", encoding="utf-8") as srt,
+        open(input_file, "r", encoding="utf-8") as txt,
+        open(output_file, "w", encoding="utf-8") as srt,
     ):
         # Separa los tiempos de las frases en una tupla para tiempos
         # y en un generador para las frases
         txt = tuple(line.rstrip() for line in txt.readlines())
         # Impares
-        tiempos = txt[::2]
+        time_stamps = txt[::2]
         # Pares
-        frases = (frase.capitalize() for frase in txt[1::2])
+        phrases = (phrase.capitalize() for phrase in txt[1::2])
 
-        for i, frase in enumerate(frases):
+        for i, phrase in enumerate(phrases):
             # Escribe el número de subtítulo
             srt.write(str(i + 1))
-            primer_t = f"00:{tiempos[i]},00"
-            segundo_t = get_second_time(tiempos, i, seg)
+            first_time = f"00:{time_stamps[i]},00"
+            second_time = get_second_time(time_stamps, i, seg)
             # Escribe el la duración del sub y la frase
-            srt.write(f"\n{primer_t} --> {segundo_t}\n")
-            srt.write(frase + "\n" * 2)
+            srt.write(f"\n{first_time} --> {second_time}\n")
+            srt.write(phrase + "\n" * 2)
 
 
-def get_second_time(tiempos: Sequence[str], i: int, last_seg: float) -> str:
-    """Obtiene el segundo tiempo de la lista de tiempos para el subtítulo actual
+def get_second_time(time_stamps: Sequence[str], i: int, last_second: float) -> str:
+    """
+    Obtiene el segundo tiempo de la lista de tiempos para el subtítulo actual.
 
-    Args:
-        tiempos (Sequence[str]): Los tiempos de los subtítulos
-        i (int): Contador del subtítulo actual
-        last_seg (float): Duración del último subtítulo
+    Parameters
+    ----------
+    time_stamps : Sequence[str]
+        Los tiempos de los subtítulos
+    i : int
+        Contador del subtítulo actual
+    last_second : float
+        Duración del último subtítulo
 
-    Returns:
-        srt: Segundo tiempo
+    Returns
+    -------
+    str
+        Segundo tiempo
     """
     try:
         # Da formato a los tiempos
-        return f"00:{tiempos[i + 1]},00"
+        return f"00:{time_stamps[i + 1]},00"
 
     except IndexError:  # Justo cuando falte el último tiempo
         # Tomando el último tiempo del archivo se le da formato
         # y suma 'last_seg' segundos para obtener el momento cuando
         # desaparece el último subtítulo
-        segundo_t = datetime.strptime(tiempos[i], "%M:%S") + timedelta(seconds=last_seg)
-        return f"{segundo_t:%H:%M:%S},00"
+        second_time = datetime.strptime(time_stamps[i], "%M:%S") + timedelta(
+            seconds=last_second
+        )
+        return f"{second_time:%H:%M:%S},00"
 
     except ValueError:
         # Si no se puede dar formato a los tiempos
