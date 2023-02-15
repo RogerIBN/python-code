@@ -71,7 +71,7 @@ def get_second_time(tiempos: Sequence[str], i: int, last_seg: float) -> str:
         # y suma 'last_seg' segundos para obtener el momento cuando
         # desaparece el último subtítulo
         segundo_t = datetime.strptime(tiempos[i], "%M:%S") + timedelta(seconds=last_seg)
-        return f"{segundo_t.strftime('%H:%M:%S')},00"
+        return f"{segundo_t:%H:%M:%S},00"
 
     except ValueError:
         # Si no se puede dar formato a los tiempos
