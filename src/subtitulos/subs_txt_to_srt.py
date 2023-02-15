@@ -44,13 +44,17 @@ def srt_from_raw_youtube(
         phrases = (phrase.capitalize() for phrase in txt[1::2])
 
         for i, phrase in enumerate(phrases):
-            # Escribe el número de subtítulo
-            srt.write(str(i + 1))
             first_time = f"00:{time_stamps[i]},00"
             second_time = get_second_time(time_stamps, i, seg)
-            # Escribe el la duración del sub y la frase
-            srt.write(f"\n{first_time} --> {second_time}\n")
-            srt.write(phrase + "\n" * 2)
+            # Escribe el número del subtítulo, la duración y la frase
+            srt.write(
+                f"""\
+{i + 1}
+{first_time} --> {second_time}
+{phrase}
+
+"""
+            )
 
 
 def get_second_time(time_stamps: Sequence[str], i: int, last_second: float) -> str:
