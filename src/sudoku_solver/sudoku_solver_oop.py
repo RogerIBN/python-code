@@ -8,63 +8,77 @@ import numpy as np
 class Sudoku:
     """Clase que sostiene una partida de sudoku"""
 
-    def __init__(self, rejilla: list[list[int]]) -> None:
-        """Inicializa la rejilla del sudoku
-
-        Args:
-            rejilla (list[list[int]]): Rejilla que almacena los números del sudoku.
+    def __init__(self, grid: list[list[int]]) -> None:
         """
-        self.rejilla = rejilla
-        self.rejilla_original = [row[:] for row in rejilla]
+        Inicializa la rejilla del sudoku
+
+        Parameters
+        ----------
+        grid : list[list[int]]
+            Rejilla que almacena los números del sudoku.
+        """
+        self.grid = grid
+        self.initial_grid = [row[:] for row in grid]
 
     def __repr__(self) -> str:
-        return f"{__class__.__name__}:(\n{np.array(self.rejilla_original)}\n)"
+        return f"""\
+{__class__.__name__}:(
+    {np.array(self.initial_grid)}
+)"""
 
     def __str__(self) -> str:
         sudoku_str = [
             [
-                " ".join(str(num) for num in fil[col_index : col_index + 3])
+                " ".join(str(num) for num in row[col_index : col_index + 3])
                 for col_index in range(0, 9, 3)
             ]
-            for fil in self.rejilla
+            for row in self.grid
         ]
         sudoku_str = [
             "\n".join(
-                "  |  ".join(fil)
-                for fil in sudoku_str[cuadrante_col_index : cuadrante_col_index + 3]
+                "  |  ".join(row)
+                for row in sudoku_str[quadrant_col_index : quadrant_col_index + 3]
             )
-            for cuadrante_col_index in range(0, 9, 3)
+            for quadrant_col_index in range(0, 9, 3)
         ]
         return "\n------ + ------- + ------\n".join(sudoku_str)
 
-    def posible_poner(self, pos_y: int, pos_x: int, num: int) -> bool:
-        """Detecta si un numero es posible colocarlo
-        en nuestro sudoku buscando coincidencias en fila
-        columna y casilla.
-        Args:
-            pos_y (int): coordenada y
-            pos_x (int): coordenada x
-            num (int): numero a probar
-        Returns:
-            bool: La condición es posible o no.
+    def can_set_in(self, pos_y: int, pos_x: int, num: int) -> bool:
+        """
+        Detecta si un numero es posible colocarlo en nuestro sudoku buscando
+        coincidencias en la fila, columna y casilla.
+
+        Parameters
+        ----------
+        pos_y : int
+            Coordenada y
+        pos_x : int
+            Coordenada x
+        num : int
+            Numero a probar
+
+        Returns
+        -------
+        bool
+            LA condición es posible o no.
         """
         # sourcery skip: invert-any-all, use-any, use-next
         # Revisa si no hay coincidencias en la columna
-        for fil in range(9):
-            if self.rejilla[fil][pos_x] == num:
+        for row in range(9):
+            if self.grid[row][pos_x] == num:
                 return False
 
         # Revisa si no hay coincidencias en la fila
         for col in range(9):
-            if self.rejilla[pos_y][col] == num:
+            if self.grid[pos_y][col] == num:
                 return False
 
         # Detecta en cual de las 9 cuadrículas se encuentra la casilla
-        cuadrante_x = (pos_x // 3) * 3
-        cuadrante_y = (pos_y // 3) * 3
+        quadrant_x = (pos_x // 3) * 3
+        quadrant_y = (pos_y // 3) * 3
         # Revisa en cada casilla de la cuadrícula
-        for fil, col in product(range(3), range(3)):
-            if self.rejilla[cuadrante_y + fil][cuadrante_x + col] == num:
+        for row, col in product(range(3), range(3)):
+            if self.grid[quadrant_y + row][quadrant_x + col] == num:
                 return False
         # Si ninguna condición se cumple, entonces es posible
         return True
@@ -74,28 +88,28 @@ class Sudoku:
         # Itera sobre todas las casillas
         for pos_y, pos_x in product(range(9), range(9)):
             # Si la casilla está vacía
-            if self.rejilla[pos_y][pos_x] == 0:
+            if self.grid[pos_y][pos_x] == 0:
                 # Prueba todos los números
                 for num in range(1, 10):
                     # Si es posible poner el número en la casilla
-                    if self.posible_poner(pos_y, pos_x, num):
+                    if self.can_set_in(pos_y, pos_x, num):
                         # Coloca ese número en el sudoku
-                        self.rejilla[pos_y][pos_x] = num
+                        self.grid[pos_y][pos_x] = num
                         # Sigue detectando
                         self.resolver()
                         # Si no es posible poner el numero deshaz el intento anterior
                         # vaciando la celda
-                        self.rejilla[pos_y][pos_x] = 0
+                        self.grid[pos_y][pos_x] = 0
                 # Prueba otro número
                 return
         print(self)
-        self.salvar_respuesta("src/sudoku_solver/sudoku_solver_oop.txt")
+        # self.save_answer("src/sudoku_solver/sudoku_solver_oop.txt")
         # Si no hay casillas vacías, terminaste con una respuesta
         # Muéstrame
         # Pausa el proceso y pregunta si quieres continuar.
         input("Continuar?")
 
-    def salvar_respuesta(self, filename: str) -> None:
+    def save_answer(self, filename: str) -> None:
         """Guarda la respuesta en un archivo con el siguiente formato
         6 3 9  |  4 2 5  |  7 1 8
         2 4 8  |  1 3 7  |  9 6 5
