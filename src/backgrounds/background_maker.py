@@ -89,7 +89,9 @@ def drawn_dots(img: Image, color: Pixel, gap: int = 30, radius: int = 1) -> Imag
     """
     height, width, _ = img.shape
     for row, column in product(range(gap, height, gap), range(gap, width, gap)):
-        cv.circle(img, center=(column, row), radius=radius, color=color, thickness=-1)
+        cv.circle(
+            img, center=(column, row), radius=radius, color=color, thickness=cv.FILLED
+        )
     return img
 
 
