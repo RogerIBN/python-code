@@ -1,5 +1,4 @@
-"""Para mostrar la solución"""
-#%%
+"""Para mostrar la solución de un sudoku"""
 from itertools import product
 
 import numpy as np
@@ -37,9 +36,9 @@ class Sudoku:
         sudoku_str = [
             "\n".join(
                 "  |  ".join(row)
-                for row in sudoku_str[quadrant_col_index : quadrant_col_index + 3]
+                for row in sudoku_str[row_quadrant_index : row_quadrant_index + 3]
             )
-            for quadrant_col_index in range(0, 9, 3)
+            for row_quadrant_index in range(0, 9, 3)
         ]
         return "\n------ + ------- + ------\n".join(sudoku_str)
 
@@ -60,7 +59,7 @@ class Sudoku:
         Returns
         -------
         bool
-            LA condición es posible o no.
+            La condición es posible o no.
         """
         # sourcery skip: invert-any-all, use-any, use-next
         # Revisa si no hay coincidencias en la columna
@@ -77,16 +76,23 @@ class Sudoku:
         quadrant_x = (pos_x // 3) * 3
         quadrant_y = (pos_y // 3) * 3
         # Revisa en cada casilla de la cuadrícula
-        for row, col in product(range(3), range(3)):
+        for row, col in product(range(3), repeat=2):
             if self.grid[quadrant_y + row][quadrant_x + col] == num:
                 return False
         # Si ninguna condición se cumple, entonces es posible
         return True
 
-    def resolver(self):
-        """Resuelve el sudoku probando todos los números"""
+    def solve(self) -> None:
+        """
+        Resuelve el sudoku probando todos los números
+
+        Returns
+        -------
+        None
+            Imprime la solución si devolverla.
+        """
         # Itera sobre todas las casillas
-        for pos_y, pos_x in product(range(9), range(9)):
+        for pos_y, pos_x in product(range(9), repeat=2):
             # Si la casilla está vacía
             if self.grid[pos_y][pos_x] == 0:
                 # Prueba todos los números
@@ -96,21 +102,28 @@ class Sudoku:
                         # Coloca ese número en el sudoku
                         self.grid[pos_y][pos_x] = num
                         # Sigue detectando
-                        self.resolver()
+                        self.solve()
                         # Si no es posible poner el numero deshaz el intento anterior
                         # vaciando la celda
                         self.grid[pos_y][pos_x] = 0
                 # Prueba otro número
                 return
         print(self)
-        # self.save_answer("src/sudoku_solver/sudoku_solver_oop.txt")
+        self.save_answer("src/sudoku_solver/sudoku_solver_oop.txt")
         # Si no hay casillas vacías, terminaste con una respuesta
         # Muéstrame
         # Pausa el proceso y pregunta si quieres continuar.
         input("Continuar?")
 
     def save_answer(self, filename: str) -> None:
-        """Guarda la respuesta en un archivo con el siguiente formato
+        """
+        Guarda la respuesta en un archivo con el siguiente formato
+
+        Parameters
+        ----------
+        filename : str
+            Nombre del archivo
+
         6 3 9  |  4 2 5  |  7 1 8
         2 4 8  |  1 3 7  |  9 6 5
         5 7 1  |  9 6 8  |  3 4 2
@@ -127,10 +140,8 @@ class Sudoku:
             file.write(f"{self}\n{'='*25}\n")
 
 
-#%%
 def main():
     """Programa principal"""
-
     sudoku = Sudoku(
         [
             [0, 0, 0, 0, 0, 0, 7, 0, 0],
@@ -144,7 +155,7 @@ def main():
             [0, 9, 0, 0, 0, 0, 2, 0, 0],
         ]
     )
-    sudoku.resolver()
+    sudoku.solve()
 
 
 if __name__ == "__main__":
