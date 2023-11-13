@@ -28,7 +28,7 @@ def srt_from_raw_youtube(
 
     # Lee los subtítulos y crea el nuevo archivo
     with input_file.open("r", encoding="utf-8") as txt:
-        youtube_text = [line.rstrip() for line in txt.readlines()]
+        youtube_text = txt.read().splitlines()
 
     captions = _get_captions(youtube_text, seg)
 

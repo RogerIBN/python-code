@@ -2,6 +2,7 @@
 Modulo para aplicar el filtro de viñeta a una imagen
 """
 import cv2 as cv
+
 import src.backgrounds.background_maker as bg_maker
 
 

@@ -1,5 +1,5 @@
 """Para mostrar la solución de un sudoku"""
-from itertools import product
+from itertools import product, batched
 
 import numpy as np
 
@@ -27,18 +27,12 @@ class Sudoku:
 
     def __str__(self) -> str:
         sudoku_str = [
-            [
-                " ".join(str(num) for num in row[col_index : col_index + 3])
-                for col_index in range(0, 9, 3)
-            ]
+            [" ".join(str(num) for num in nums) for nums in batched(row, 3)]
             for row in self.grid
         ]
         sudoku_str = [
-            "\n".join(
-                "  |  ".join(row)
-                for row in sudoku_str[row_quadrant_index : row_quadrant_index + 3]
-            )
-            for row_quadrant_index in range(0, 9, 3)
+            "\n".join("  |  ".join(row) for row in row_quadrant)
+            for row_quadrant in batched(sudoku_str, 3)
         ]
         return "\n------ + ------- + ------\n".join(sudoku_str)
 

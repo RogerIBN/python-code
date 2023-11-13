@@ -11,7 +11,7 @@ from command_line_interface import CommandLineInterface
 from user_interface import UserInterface
 
 BOARD_SIZE = 3
-Coordinates = tuple[int, int]
+type Coordinates = tuple[int, int]
 
 
 class CoordinateNotInRangeError(ValueError):
