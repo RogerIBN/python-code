@@ -53,9 +53,10 @@ class Player:
 
     @last_move.setter
     def last_move(self, coordinates: Coordinates) -> None:
-        # sourcery skip: invert-any-all
         """Last move setter of coordinates"""
-        if not all(0 <= coordinate < BOARD_SIZE for coordinate in coordinates):
+        if any(
+            coordinate < 0 or coordinate >= BOARD_SIZE for coordinate in coordinates
+        ):
             raise CoordinateNotInRangeError(
                 coordinates=coordinates,
                 close_open_limits=(0, BOARD_SIZE),

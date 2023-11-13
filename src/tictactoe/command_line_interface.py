@@ -46,4 +46,11 @@ class CommandLineInterface:
         Returns:
             tuple[int, int]: The next coordinate
         """
-        return tuple(int(axis) for axis in input("Position -> y, x: ").split(","))
+
+        values = input("Position -> y, x: ").split(",")
+
+        match values:
+            case [y, x]:
+                return int(y), int(x)
+            case _:
+                raise ValueError("Coordinates must be a tuple of length 2")
