@@ -1,5 +1,5 @@
 """Para mostrar la solución de un sudoku"""
-from itertools import product, batched
+from itertools import batched, product
 
 import numpy as np
 
@@ -9,12 +9,9 @@ class Sudoku:
 
     def __init__(self, grid: list[list[int]]) -> None:
         """
-        Inicializa la rejilla del sudoku
-
-        Parameters
-        ----------
-        grid : list[list[int]]
-            Rejilla que almacena los números del sudoku.
+        Inicializa la clase Sudoku con una rejilla dada.
+        Args:
+            grid (list[list[int]]): Rejilla que almacena los números del sudoku.
         """
         self.grid = grid
         self.initial_grid = [row[:] for row in grid]
@@ -27,33 +24,24 @@ class Sudoku:
 
     def __str__(self) -> str:
         sudoku_str = [
-            [" ".join(str(num) for num in nums) for nums in batched(row, 3)]
-            for row in self.grid
+            (" ".join(map(str, nums)) for nums in batched(row, 3)) for row in self.grid
         ]
         sudoku_str = [
-            "\n".join("  |  ".join(row) for row in row_quadrant)
-            for row_quadrant in batched(sudoku_str, 3)
+            "\n".join(map("  |  ".join, rows)) for rows in batched(sudoku_str, 3)
         ]
         return "\n------ + ------- + ------\n".join(sudoku_str)
 
     def can_set_in(self, pos_y: int, pos_x: int, num: int) -> bool:
         """
-        Detecta si un numero es posible colocarlo en nuestro sudoku buscando
+        Detecta si un número es posible colocarlo en nuestro sudoku buscando
         coincidencias en la fila, columna y casilla.
 
-        Parameters
-        ----------
-        pos_y : int
-            Coordenada y
-        pos_x : int
-            Coordenada x
-        num : int
-            Numero a probar
-
-        Returns
-        -------
-        bool
-            La condición es posible o no.
+        Args:
+            pos_y (int): Coordenada y
+            pos_x (int): Coordenada x
+            num (int): Número a probar
+        Returns:
+            bool: La condición es posible o no.
         """
         # sourcery skip: invert-any-all, use-any, use-next
         # Revisa si no hay coincidencias en la columna
@@ -78,12 +66,7 @@ class Sudoku:
 
     def solve(self) -> None:
         """
-        Resuelve el sudoku probando todos los números
-
-        Returns
-        -------
-        None
-            Imprime la solución si devolverla.
+        Resuelve el sudoku probando todos los números posibles en cada casilla
         """
         # Itera sobre todas las casillas
         for pos_y, pos_x in product(range(9), repeat=2):
@@ -111,13 +94,11 @@ class Sudoku:
 
     def save_answer(self, filename: str) -> None:
         """
-        Guarda la respuesta en un archivo con el siguiente formato
+        Guarda la respuesta del sudoku en un archivo de texto.
 
-        Parameters
-        ----------
-        filename : str
-            Nombre del archivo
+        El archivo tendrá el siguiente formato:
 
+        >>> save_answer("sudoku_solver_oop.txt")
         6 3 9  |  4 2 5  |  7 1 8
         2 4 8  |  1 3 7  |  9 6 5
         5 7 1  |  9 6 8  |  3 4 2
@@ -129,7 +110,11 @@ class Sudoku:
         8 2 6  |  5 4 3  |  1 9 7
         3 1 5  |  2 7 9  |  4 8 6
         7 9 4  |  8 1 6  |  2 5 3
-        ========================="""
+        =========================
+
+        Args:
+            filename (str): Nombre del archivo de texto donde se guardará la respuesta.
+        """
         with open(filename, "a", encoding="utf-8") as file:
             file.write(f"{self}\n{'='*25}\n")
 
