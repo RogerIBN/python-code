@@ -23,13 +23,37 @@ class Sudoku:
 )"""
 
     def __str__(self) -> str:
-        sudoku_str = [
-            (" ".join(map(str, nums)) for nums in batched(row, 3)) for row in self.grid
-        ]
-        sudoku_str = [
-            "\n".join(map("  |  ".join, rows)) for rows in batched(sudoku_str, 3)
-        ]
-        return "\n------ + ------- + ------\n".join(sudoku_str)
+        """String representation of the Sudoku puzzle.
+
+        This function is a bit complicated. The general idea is that we
+        split the grid into three rows, and then for each row, we split
+        it into three batches of three numbers each.  Then we join each
+        batch of three numbers with spaces, and then join each row with
+        vertical bars, and then join each triplet of rows with horizontal
+        bars. This is easier to understand visually:
+
+        >>> print(sudoku)
+        6 3 9  |  4 2 5  |  7 1 8
+        2 4 8  |  1 3 7  |  9 6 5
+        5 7 1  |  9 6 8  |  3 4 2
+        ------ + ------- + ------
+        1 6 2  |  7 5 4  |  8 3 9
+        4 8 3  |  6 9 2  |  5 7 1
+        9 5 7  |  3 8 1  |  6 2 4
+        ------ + ------- + ------
+        8 2 6  |  5 4 3  |  1 9 7
+        3 1 5  |  2 7 9  |  4 8 6
+        7 9 4  |  8 1 6  |  2 5 3
+        """
+        return "\n------ + ------- + ------\n".join(
+            "\n".join(
+                "  |  ".join(
+                    " ".join(map(str, batched_nums)) for batched_nums in batched(row, 3)
+                )
+                for row in batched_rows
+            )
+            for batched_rows in batched(self.grid, 3)
+        )
 
     def can_set_in(self, pos_y: int, pos_x: int, num: int) -> bool:
         """
