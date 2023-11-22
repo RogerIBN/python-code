@@ -1,92 +1,49 @@
-"""Módulos para calcular el la duración del último subtítulo"""
+"""Modules to calculate the duration of the last subtitle"""
 from datetime import datetime, timedelta
 from itertools import islice
 from pathlib import Path
 from typing import Iterable, Optional
 
 
-def srt_from_raw_youtube(
-    input_file: Path, output_file_name: Optional[str] = None, seg: float = 3
-) -> None:
+def srt_from_raw_youtube(input_text: str, seg: float = 3) -> str:
     """
-    Crea un archivo de extensión srt tomando un archivo de script de youtube.
+    Generate an `.srt` file from a raw YouTube transcript.
 
-    Parameters
-    ----------
-    input_file : str
-        Dirección del archivo.
-    output_file_name : Optional[str], optional
-        Nombre del archivo, by default None
-    seg : float, optional
-        Duración del último subtítulo, by default 3
+    Args:
+        input_text (str): The raw YouTube transcript.
+        seg (float, optional): The time of the last subtitle. Defaults to 3.
+
+    Returns:
+        str: The `.srt` file.
     """
-    # Busca el nombre del archivo para crear uno que se llame igual
-    # pero con extensión .srt y en la misma dirección del
-    # archivo original
+    youtube_text = input_text.splitlines()
 
-    output_file = _get_output_file(input_file, output_file_name)
-
-    # Lee los subtítulos y crea el nuevo archivo
-    with input_file.open("r", encoding="utf-8") as txt:
-        youtube_text = txt.read().splitlines()
-
-    captions = _get_captions(youtube_text, seg)
-
-    with output_file.open("w", encoding="utf-8") as srt:
-        srt.writelines(captions)
-
-
-def _get_captions(youtube_text: list[str], seg: float) -> Iterable[str]:
-    """
-    Crear las líneas del archivo srt.
-
-    Parameters
-    ----------
-    youtube_text : list[str]
-        El texto del archivo de subtítulos.
-    seg : float
-        La duración del último subtítulo.
-
-    Returns
-    -------
-    list[str]
-        La lista de líneas del archivo srt.
-    """
-    # Separa los tiempos de las frases en una tupla para tiempos
-    # y en un generador para las frases
-
-    # Impares
+    # Odd lines
     begin_time_stamps = youtube_text[::2]
 
-    # Pares
+    # Even lines
     phrases = (phrase.capitalize() for phrase in islice(youtube_text, 1, None, 2))
 
     end_time_stamps = _get_end_time_stamps(begin_time_stamps, seg)
 
-    return _construct_captions(begin_time_stamps, phrases, end_time_stamps)
+    return "".join(_construct_captions(begin_time_stamps, end_time_stamps, phrases))
 
 
 def _construct_captions(
     begin_time_stamps: Iterable[str],
-    phrases: Iterable[str],
     end_time_stamps: Iterable[str],
+    phrases: Iterable[str],
 ) -> Iterable[str]:
     """
-    Construye las líneas del archivo srt.
+    Construct the captions from the begin time stamps, phrases, and end time stamps.
 
-    Parameters
-    ----------
-    begin_time_stamps : Iterable[str]
-        La lista de tiempos iniciales de los subtítulos.
-    phrases : Iterable[str]
-        La lista de frases de los subtítulos.
-    end_time_stamps : Iterable[str]
-        La lista de tiempos finales de los subtítulos.
+    Args:
+        begin_time_stamps (Iterable[str]): The begin time stamps.
+        end_time_stamps (Iterable[str]): The end time stamps.
+        phrases (Iterable[str]): The phrases.
 
-    Returns
-    -------
-    Iterable[str]
-        La lista de líneas del archivo srt.
+    Returns:
+        Iterable[str]: The captions.
     """
     return (
         f"""\
@@ -101,23 +58,23 @@ def _construct_captions(
     )
 
 
-def _get_output_file(input_file: Path, output_file_name: Optional[str]) -> Path:
+def get_output_file(
+    input_file: Path, extension: str = "", output_file_name: Optional[str] = None
+) -> Path:
     """
-    Genera la dirección del archivo de salida.
+    Find the output file name to create a file with the same name
+    but with the .srt extension and in the same directory as
+    the original file.
 
-    Parameters
-    ----------
-    input_file : Path
-        Dirección del archivo de entrada.
-    output_file_name : str
-        Nombre del archivo de salida.
+    Parameters:
+        input_file (Path): The input file path.
+        extension (str, optional): The extension of the output file, by default "".
+        output_file_name (str, optional): The output file name, by default None.
 
-    Returns
-    -------
-    Path
-        Dirección del archivo de salida.
+    Returns:
+        Path: The output file path.
     """
-    output_file = input_file.with_suffix(".srt")
+    output_file = input_file.with_suffix(extension)
     output_file = (
         output_file.with_stem(output_file_name) if output_file_name else output_file
     )
@@ -127,19 +84,14 @@ def _get_output_file(input_file: Path, output_file_name: Optional[str]) -> Path:
 
 def _get_end_time_stamps(begin_time_stamps: list[str], seg: float = 3) -> list[str]:
     """
-    Genera la lista de tiempos finales de los subtítulos.
+    Generate the list of end time stamps for the subtitles.
 
-    Parameters
-    ----------
-    begin_time_stamps : list[str]
-        La lista de tiempos iniciales de los subtítulos.
-    seg : float, optional
-        El tiempo del último subtítulo, by default 3
+    Args:
+        begin_time_stamps (list[str]): The list of begin time stamps for the subtitles.
+        seg (float, optional): The time of the last subtitle, by default 3.
 
-    Returns
-    -------
-    list[str]
-        La lista de tiempos finales de los subtítulos.
+    Returns:
+        list[str]: The list of end time stamps for the subtitles.
     """
     end_time_stamps = begin_time_stamps.copy()
     end_time_stamps.pop(0)
@@ -151,8 +103,12 @@ def _get_end_time_stamps(begin_time_stamps: list[str], seg: float = 3) -> list[s
 
 
 def main() -> None:
-    """Programa principal"""
-    srt_from_raw_youtube(Path("src/subtitles/yt_sub.txt"))
+    """Main program"""
+    input_file = Path("src/subtitles/yt_sub.txt")
+    input_text: str = input_file.read_text(encoding="utf-8")
+    output_text: str = srt_from_raw_youtube(input_text=input_text)
+    output_file: Path = get_output_file(input_file, extension=".srt")
+    output_file.write_text(output_text, encoding="utf-8")
 
 
 if __name__ == "__main__":
