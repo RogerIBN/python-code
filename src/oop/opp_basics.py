@@ -46,8 +46,8 @@ def main():
     # Acceder a los atributos (Probamos si sus edades son iguales)
     print(
         f"""\
-    ¿{person_1.name} y {person_2.name} tienen la misma edad?
-    Respuesta: {person_1.age == person_2.age}"""
+¿{person_1.name} y {person_2.name} tienen la misma edad?
+Respuesta: {person_1.age == person_2.age}"""
     )
 
 
