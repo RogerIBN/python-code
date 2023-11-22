@@ -8,17 +8,39 @@ Note: The Sudoku puzzle is represented as a 9x9 grid, where 0 represents an empt
 
 For more details, please refer to the inline comments in the code.
 """
-from itertools import batched, product
+# %%
+from itertools import chain, product
+from typing import Sequence
 
 import numpy as np
 
-type Grid = list[list[int]]
+type Grid = Sequence[list[int]]
 
 
 class Sudoku:
     """
     Class that represents a Sudoku puzzle and provides methods to solve the puzzle.
+
+    Attributes:
+        grid (Grid): A 9x9 grid representing the Sudoku puzzle.
+        initial_grid (Grid): A copy of the initial grid.
+        drawn_grid (LiteralString): A string representation of the Sudoku puzzle.
     """
+
+    drawn_grid: str = """\
+0 0 0  |  0 0 0  |  0 0 0
+0 0 0  |  0 0 0  |  0 0 0
+0 0 0  |  0 0 0  |  0 0 0
+------ + ------- + ------
+0 0 0  |  0 0 0  |  0 0 0
+0 0 0  |  0 0 0  |  0 0 0
+0 0 0  |  0 0 0  |  0 0 0
+------ + ------- + ------
+0 0 0  |  0 0 0  |  0 0 0
+0 0 0  |  0 0 0  |  0 0 0
+0 0 0  |  0 0 0  |  0 0 0""".replace(
+        "0", "{}"
+    )
 
     def __init__(self, grid: Grid) -> None:
         """
@@ -37,15 +59,13 @@ class Sudoku:
 )"""
 
     def __str__(self) -> str:
-        """String representation of the Sudoku puzzle.
+        """
+        String representation of the Sudoku puzzle.
 
-        This function is a bit complicated. The general idea is that we
-        split the grid into three rows, and then for each row, we split
-        it into three batches of three numbers each.  Then we join each
-        batch of three numbers with spaces, and then join each row with
-        vertical bars, and then join each triplet of rows with horizontal
-        bars. This is easier to understand visually:
+        Consists of a 9x9 grid, where each cell is represented by a number.
+        Empty cells are represented by 0.
 
+        Example:
         >>> print(sudoku)
         6 3 9  |  4 2 5  |  7 1 8
         2 4 8  |  1 3 7  |  9 6 5
@@ -59,15 +79,7 @@ class Sudoku:
         3 1 5  |  2 7 9  |  4 8 6
         7 9 4  |  8 1 6  |  2 5 3
         """
-        return "\n------ + ------- + ------\n".join(
-            "\n".join(
-                "  |  ".join(
-                    " ".join(map(str, batched_nums)) for batched_nums in batched(row, 3)
-                )
-                for row in batched_rows
-            )
-            for batched_rows in batched(self.grid, 3)
-        )
+        return self.drawn_grid.format(*chain.from_iterable(self.grid))
 
     def can_set_in(self, pos_y: int, pos_x: int, num: int) -> bool:
         """
@@ -83,22 +95,21 @@ class Sudoku:
             False otherwise.
         """
         # sourcery skip: invert-any-all, use-any, use-next
-        # Check if there are no matches in the column
-        for row in range(9):
-            if self.grid[row][pos_x] == num:
-                return False
-
         # Check if there are no matches in the row
-        for col in range(9):
-            if self.grid[pos_y][col] == num:
+        if num in self.grid[pos_y]:
+            return False
+
+        # Check if there are no matches in the column
+        for row in self.grid:
+            if row[pos_x] == num:
                 return False
 
         # Check in which of the 9 boxes the cell is located
-        quadrant_x = (pos_x // 3) * 3
         quadrant_y = (pos_y // 3) * 3
+        quadrant_x = (pos_x // 3) * 3
         # Check if there are no matches in the box
-        for row, col in product(range(3), repeat=2):
-            if self.grid[quadrant_y + row][quadrant_x + col] == num:
+        for row in self.grid[quadrant_y : quadrant_y + 3]:
+            if num in row[quadrant_x : quadrant_x + 3]:
                 return False
         # If no condition is met, then it is possible
         return True
@@ -174,6 +185,7 @@ class Sudoku:
 
 def main():
     """Main program"""
+    # %%
     grid: Grid = [
         [0, 0, 0, 0, 0, 0, 7, 0, 0],
         [0, 4, 0, 0, 3, 0, 0, 6, 5],
@@ -185,9 +197,13 @@ def main():
         [0, 0, 0, 0, 7, 0, 4, 0, 0],
         [0, 9, 0, 0, 0, 0, 2, 0, 0],
     ]
+    # %%
 
     sudoku = Sudoku(grid)
     sudoku.solve()
+
+
+# %%
 
 
 if __name__ == "__main__":
