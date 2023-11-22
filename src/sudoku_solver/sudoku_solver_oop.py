@@ -1,20 +1,34 @@
-"""Para mostrar la solución de un sudoku"""
+"""A Sudoku Solver using Object-Oriented Programming.
+
+This module provides a Sudoku class that represents a Sudoku puzzle and
+provides methods to solve the puzzle using backtracking. The Sudoku class
+stores the initial grid and provides a string representation of the puzzle.
+
+Note: The Sudoku puzzle is represented as a 9x9 grid, where 0 represents an empty cell.
+
+For more details, please refer to the inline comments in the code.
+"""
 from itertools import batched, product
 
 import numpy as np
 
+type Grid = list[list[int]]
+
 
 class Sudoku:
-    """Clase que sostiene una partida de sudoku"""
+    """
+    Class that represents a Sudoku puzzle and provides methods to solve the puzzle.
+    """
 
-    def __init__(self, grid: list[list[int]]) -> None:
+    def __init__(self, grid: Grid) -> None:
         """
-        Inicializa la clase Sudoku con una rejilla dada.
+        Initialize a Sudoku puzzle.
+
         Args:
-            grid (list[list[int]]): Rejilla que almacena los números del sudoku.
+            grid (Grid): A 9x9 grid representing the Sudoku puzzle.
         """
-        self.grid = grid
-        self.initial_grid = [row[:] for row in grid]
+        self.grid: Grid = grid
+        self.initial_grid: Grid = [row[:] for row in grid]
 
     def __repr__(self) -> str:
         return f"""\
@@ -57,70 +71,85 @@ class Sudoku:
 
     def can_set_in(self, pos_y: int, pos_x: int, num: int) -> bool:
         """
-        Detecta si un número es posible colocarlo en nuestro sudoku buscando
-        coincidencias en la fila, columna y casilla.
+        Detects if a number can be placed in the Sudoku puzzle by checking
+        for matches in the row, column, and box.
 
         Args:
-            pos_y (int): Coordenada y
-            pos_x (int): Coordenada x
-            num (int): Número a probar
+            pos_y (int): Y coordinate
+            pos_x (int): X coordinate
+            num (int): Number to check
         Returns:
-            bool: La condición es posible o no.
+            bool: True if the number can be placed in the Sudoku puzzle,
+            False otherwise.
         """
         # sourcery skip: invert-any-all, use-any, use-next
-        # Revisa si no hay coincidencias en la columna
+        # Check if there are no matches in the column
         for row in range(9):
             if self.grid[row][pos_x] == num:
                 return False
 
-        # Revisa si no hay coincidencias en la fila
+        # Check if there are no matches in the row
         for col in range(9):
             if self.grid[pos_y][col] == num:
                 return False
 
-        # Detecta en cual de las 9 cuadrículas se encuentra la casilla
+        # Check in which of the 9 boxes the cell is located
         quadrant_x = (pos_x // 3) * 3
         quadrant_y = (pos_y // 3) * 3
-        # Revisa en cada casilla de la cuadrícula
+        # Check if there are no matches in the box
         for row, col in product(range(3), repeat=2):
             if self.grid[quadrant_y + row][quadrant_x + col] == num:
                 return False
-        # Si ninguna condición se cumple, entonces es posible
+        # If no condition is met, then it is possible
         return True
 
     def solve(self) -> None:
         """
-        Resuelve el sudoku probando todos los números posibles en cada casilla
+        Solve the Sudoku puzzle using backtracking.
+
+        This method implements the backtracking algorithm to solve a Sudoku puzzle.
+        It iterates over each cell in the grid and tries to fill it with a number
+        from 1 to 9. If a number can be placed in a cell without violating the Sudoku
+        rules, it is set and the algorithm continues recursively. If there are no
+        possible numbers to place in a cell, the algorithm backtracks by emptying
+        the cell and trying another number.
+
+        After solving the puzzle, the method prints the solved grid and saves it to
+        a text file. It also pauses the process and asks the user if they want to
+        continue.
         """
-        # Itera sobre todas las casillas
+        # Iter over all cells
         for pos_y, pos_x in product(range(9), repeat=2):
-            # Si la casilla está vacía
+            # If the cell is empty
             if self.grid[pos_y][pos_x] == 0:
-                # Prueba todos los números
+                # Try all numbers
                 for num in range(1, 10):
-                    # Si es posible poner el número en la casilla
+                    # If it is possible to put the number in the cell
                     if self.can_set_in(pos_y, pos_x, num):
-                        # Coloca ese número en el sudoku
+                        # Set the number in the sudoku
                         self.grid[pos_y][pos_x] = num
-                        # Sigue detectando
+                        # Continue detecting
                         self.solve()
-                        # Si no es posible poner el numero deshaz el intento anterior
-                        # vaciando la celda
+                        # If there are no ways to set the number, backtrack
+                        # emptying the cell and trying another number
                         self.grid[pos_y][pos_x] = 0
-                # Prueba otro número
+                # Try another cell
                 return
+        # If there are no empty cells, you finished with an answer
+        # Show me
         print(self)
-        self.save_answer("src/sudoku_solver/sudoku_solver_oop.txt")
-        # Si no hay casillas vacías, terminaste con una respuesta
-        # Muéstrame
-        # Pausa el proceso y pregunta si quieres continuar.
+        # Save the answer in a text file
+        output_path: str = "src/sudoku_solver/sudoku_solver_oop.txt"
+        self.save_answer(output_path)
+        # Pause the process and ask if you want to continue.
         input("Continuar?")
 
     def save_answer(self, filename: str) -> None:
         """
-        Guarda la respuesta del sudoku en un archivo de texto.
+        Save the answer of the Sudoku puzzle in a text file.
 
-        El archivo tendrá el siguiente formato:
+        This function appends the answer to the end of the file
+        with the following format:
 
         >>> save_answer("sudoku_solver_oop.txt")
         6 3 9  |  4 2 5  |  7 1 8
@@ -137,27 +166,27 @@ class Sudoku:
         =========================
 
         Args:
-            filename (str): Nombre del archivo de texto donde se guardará la respuesta.
+            filename (str): Name of the file to save the answer.
         """
         with open(filename, "a", encoding="utf-8") as file:
             file.write(f"{self}\n{'='*25}\n")
 
 
 def main():
-    """Programa principal"""
-    sudoku = Sudoku(
-        [
-            [0, 0, 0, 0, 0, 0, 7, 0, 0],
-            [0, 4, 0, 0, 3, 0, 0, 6, 5],
-            [0, 0, 1, 0, 0, 8, 0, 0, 0],
-            [0, 6, 0, 0, 5, 0, 0, 3, 9],
-            [4, 0, 0, 6, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 2, 0],
-            [8, 0, 0, 0, 0, 3, 0, 9, 7],
-            [0, 0, 0, 0, 7, 0, 4, 0, 0],
-            [0, 9, 0, 0, 0, 0, 2, 0, 0],
-        ]
-    )
+    """Main program"""
+    grid: Grid = [
+        [0, 0, 0, 0, 0, 0, 7, 0, 0],
+        [0, 4, 0, 0, 3, 0, 0, 6, 5],
+        [0, 0, 1, 0, 0, 8, 0, 0, 0],
+        [0, 6, 0, 0, 5, 0, 0, 3, 9],
+        [4, 0, 0, 6, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 2, 0],
+        [8, 0, 0, 0, 0, 3, 0, 9, 7],
+        [0, 0, 0, 0, 7, 0, 4, 0, 0],
+        [0, 9, 0, 0, 0, 0, 2, 0, 0],
+    ]
+
+    sudoku = Sudoku(grid)
     sudoku.solve()
 
 
