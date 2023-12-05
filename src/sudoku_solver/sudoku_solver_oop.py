@@ -265,8 +265,7 @@ class SudokuGame:
             self.solve()
 
         with open(filename, "r", encoding="utf-8") as file:
-            text = f"\n{'='*25}\n".join(str(result) for result in self.results)
-            file.write(text)
+            file.write(f"\n{'='*25}\n".join(str(result) for result in self.results))
 
 
 # %%
@@ -291,7 +290,8 @@ def main():
     sudoku = SudokuGame(grid)
     print(sudoku)
     sudoku.solve()
-    sudoku.save_results("src/sudoku_solver/sudoku_solver_oop.txt")
+    results_file = "src/sudoku_solver/sudoku_solver_oop.txt"
+    sudoku.save_results(results_file)
 
 
 # %%
