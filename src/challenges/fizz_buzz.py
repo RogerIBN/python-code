@@ -1,11 +1,9 @@
 """
 A solution to the FizzBuzz problem.
 """
-from itertools import compress
-
-Divisor = int
-Word = str
-Rules = dict[Divisor, Word]
+type Divisor = int
+type Word = str
+type Rules = dict[Divisor, Word]
 
 
 def main():
